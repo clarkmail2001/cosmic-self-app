@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Self | Know Your Place in the Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --gold: #c9a962;
+            --gold-bright: #e8d5a3;
+            --silver: #9ca3af;
+            --text-primary: #f0ebe3;
+            --text-secondary: #8b8b99;
+            --accent-purple: #7c3aed;
+            --accent-blue: #3b82f6;
+            --accent-coral: #f97316;
+            --gradient-cosmic: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Cosmic Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cosmic-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201, 169, 98, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+        }
+        
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            letter-spacing: 0.4em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        
+        .current-moment {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+        
+        .current-moment span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .current-moment .moon-icon {
+            font-size: 1.2rem;
+        }
+        
+        /* Input Section */
+        .input-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--gold-bright);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .input-group label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        
+        .input-group input, .input-group select {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+        }
+        
+        .input-group input::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .optional-tag {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        
+        .generate-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: linear-gradient(135deg, var(--gold) 0%, #a8894d 100%);
+            border: none;
+            border-radius: 16px;
+            color: var(--bg-deep);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(201, 169, 98, 0.3);
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .results-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cosmic Profile Card */
+        .profile-card {
+            background: var(--gradient-cosmic);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+        
+        .profile-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        
+        .life-path-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            border: 1px solid rgba(201, 169, 98, 0.3);
+        }
+        
+        .life-path-badge .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .life-path-badge .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--gold-bright);
+            line-height: 1;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .profile-stat {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        
+        .profile-stat .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-stat .value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .profile-stat .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        
+        /* Info Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            border-color: rgba(201, 169, 98, 0.2);
+            transform: translateY(-4px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+        
+        .card-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .card-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .card-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        /* Life Path Description */
+        .life-path-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        /* Moon Phase Card */
+        .moon-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .moon-visual {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+        }
+        
+        .moon-display {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .moon-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #f0ebe3 0%, #c9c5bd 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(240, 235, 227, 0.3);
+        }
+        
+        .moon-shadow {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: var(--bg-elevated);
+            transition: all 0.5s ease;
+        }
+        
+        .moon-info h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .moon-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Transit Card */
+        .transit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .transit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .transit-planet {
+            font-size: 1.2rem;
+        }
+        
+        .transit-text {
+            color: var(--text-secondary);
+        }
+        
+        .transit-sign {
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        /* Chinese Zodiac Card */
+        .zodiac-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(249, 115, 22, 0.08) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+        }
+        
+        .zodiac-animal {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .zodiac-year {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--coral, var(--accent-coral));
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Daily Guidance */
+        .guidance-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, var(--bg-card) 100%);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+        
+        .guidance-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-primary);
+            text-align: center;
+            padding: 1rem 2rem;
+        }
+        
+        /* Cosmic Calendar */
+        .calendar-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--gold-bright);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .calendar-nav button {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-nav button:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        
+        .calendar-day-header {
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background: rgba(201, 169, 98, 0.15);
+        }
+        
+        .calendar-day.today {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+        
+        .calendar-day .date {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .calendar-day .moon-mini {
+            font-size: 0.6rem;
+            margin-top: 2px;
+        }
+        
+        .calendar-day.full-moon::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        
+        .calendar-day.new-moon::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+        }
+        
+        /* Cycles Explanation */
+        .cycles-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cycles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .cycle-item {
+            padding: 1.5rem;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .cycle-item h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold-bright);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cycle-item .duration {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+        }
+        
+        .cycle-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+        
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-production {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .input-section, .profile-card, .calendar-section, .cycles-section {
+                padding: 1.5rem;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .guidance-text {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+            }
+        }
+        
+        /* Tab Navigation */
+        .page-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab-btn.active {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        
+        .tab-icon {
+            font-size: 1.2rem;
+        }
+        
+        .tab-content {
+            animation: fadeIn 0.4s ease;
+        }
+        
+        /* Chart Section */
+        .chart-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .birth-time-notice {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        @media (max-width: 900px) {
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .birth-chart-svg {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .chart-legend {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .legend-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold-bright);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .legend-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .legend-item .planet-symbol {
+            font-size: 1.2rem;
+            width: 28px;
+            text-align: center;
+        }
+        
+        .legend-item .planet-name {
+            color: var(--text-primary);
+            min-width: 70px;
+        }
+        
+        .legend-item .planet-sign {
+            color: var(--gold);
+        }
+        
+        /* Houses Section */
+        .houses-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .houses-wheel-container {
+            margin: 2rem 0;
+        }
+        
+        .houses-diagram {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .house-card {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .house-card:hover {
+            transform: translateX(4px);
+            border-left-color: var(--gold-bright);
+        }
+        
+        .house-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .house-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .house-keywords {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        
+        .house-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Sky Section */
+        .sky-section {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(15, 52, 96, 0.3) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .solar-system-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+        
+        .solar-system-svg {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .transit-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .transit-detail-card {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .transit-detail-card:hover {
+            border-color: rgba(201, 169, 98, 0.2);
+        }
+        
+        .transit-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .planet-symbol.large {
+            font-size: 2rem;
+        }
+        
+        .transit-header h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .transit-position {
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+        
+        .transit-meaning {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .outer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .outer-list div {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+        
+        .outer-list span:last-child {
+            color: var(--gold);
+        }
+        
+        /* Planet-specific colors */
+        .sun-transit { border-left: 3px solid #ffd93d; }
+        .moon-transit { border-left: 3px solid #c9c5bd; }
+        .mercury-transit { border-left: 3px solid #a78bfa; }
+        .venus-transit { border-left: 3px solid #f472b6; }
+        .mars-transit { border-left: 3px solid #ef4444; }
+        .jupiter-transit { border-left: 3px solid #f97316; }
+        .saturn-transit { border-left: 3px solid #6b7280; }
+        .outer-planets { border-left: 3px solid #3b82f6; }
+        
+        /* Aspects Section */
+        .aspects-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .aspects-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+        }
+        
+        .aspect-type {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .aspect-symbol {
+            font-size: 1.3rem;
+            width: 28px;
+            text-align: center;
+        }
+        
+        .aspect-symbol.conjunction { color: #ffd93d; }
+        .aspect-symbol.sextile { color: #22c55e; }
+        .aspect-symbol.square { color: #ef4444; }
+        .aspect-symbol.trine { color: #3b82f6; }
+        .aspect-symbol.opposition { color: #f97316; }
+        
+        .aspect-name {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        
+        .aspect-quality {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .current-aspects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .aspect-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .aspect-planets {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+        }
+        
+        .aspect-planets .aspect-glyph {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+        
+        .aspect-info {
+            flex: 1;
+        }
+        
+        .aspect-info .aspect-title {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .aspect-info .aspect-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">Cosmic Self</h1>
+            <p class="tagline">Know Your Place in the Universe</p>
+            <div class="current-moment">
+                <span><span class="moon-icon" id="headerMoon">🌗</span> <span id="headerPhase">Waning Gibbous</span></span>
+                <span>☉ <span id="headerSunSign">Capricorn</span></span>
+                <span id="headerDate"></span>
+            </div>
+        </header>
+        
+        <!-- Input Section -->
+        <section class="input-section">
+            <h2 class="section-title">Enter Your Birth Information</h2>
+            <p class="section-subtitle">Your cosmic blueprint begins with the moment you arrived on Earth</p>
+            
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" id="userName" placeholder="How you wish to be known">
+                </div>
+                <div class="input-group">
+                    <label>Birth Date *</label>
+                    <input type="date" id="birthDate" required>
+                </div>
+                <div class="input-group">
+                    <label>Birth Time <span class="optional-tag">(Optional)</span></label>
+                    <input type="time" id="birthTime" placeholder="If known">
+                </div>
+                <div class="input-group">
+                    <label>Birth Location <span class="optional-tag">(Optional)</span></label>
+                    <input type="text" id="birthPlace" placeholder="City, State/Country">
+                </div>
+            </div>
+            
+            <button class="generate-btn" onclick="generateReading()">
+                <span>✧</span> Reveal Your Cosmic Blueprint <span>✧</span>
+            </button>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            
+            <!-- Navigation Tabs -->
+            <div class="page-tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">
+                    <span class="tab-icon">✧</span> Your Overview
+                </button>
+                <button class="tab-btn" onclick="switchTab('deepdive')">
+                    <span class="tab-icon">◯</span> Houses & Planets
+                </button>
+            </div>
+            
+            <!-- Overview Tab -->
+            <div class="tab-content" id="overview-tab">
+            
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div>
+                        <h2 class="profile-name" id="profileName">Cosmic Seeker</h2>
+                        <p class="profile-date" id="profileDate">Born under the stars</p>
+                    </div>
+                    <div class="life-path-badge">
+                        <span class="label">Life Path</span>
+                        <span class="number" id="lifePathNumber">7</span>
+                    </div>
+                </div>
+                <div class="profile-grid">
+                    <div class="profile-stat">
+                        <div class="icon">☉</div>
+                        <div class="value" id="sunSign">Capricorn</div>
+                        <div class="label">Sun Sign</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="icon" id="chineseIcon">🐍</div>
+                        <div class="value" id="chineseZodiac">Snake</div>
+                        <div class="label">Chinese Zodiac</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="icon" id="elementIcon">🔥</div>
+                        <div class="value" id="chineseElement">Fire</div>
+                        <div class="label">Element</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="icon">🗓</div>
+                        <div class="value" id="birthDay">Thursday</div>
+                        <div class="label">Birth Day</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Cards -->
+            <div class="cards-grid">
+                <!-- Life Path Card -->
+                <div class="info-card life-path-card">
+                    <div class="card-header">
+                        <div class="card-icon">∞</div>
+                        <h3 class="card-title">Life Path <span id="lifePathTitle">7</span></h3>
+                    </div>
+                    <div class="card-content" id="lifePathContent">
+                        <p>Loading your life path interpretation...</p>
+                    </div>
+                </div>
+                
+                <!-- Moon Phase Card -->
+                <div class="info-card moon-card">
+                    <div class="card-header">
+                        <div class="card-icon">☽</div>
+                        <h3 class="card-title">Current Moon</h3>
+                    </div>
+                    <div class="moon-visual">
+                        <div class="moon-display">
+                            <div class="moon-circle">
+                                <div class="moon-shadow" id="moonShadow"></div>
+                            </div>
+                        </div>
+                        <div class="moon-info">
+                            <h4 id="moonPhaseName">Waning Gibbous</h4>
+                            <p id="moonIllumination">67% Illuminated</p>
+                            <p id="moonSign">Moon in Virgo</p>
+                        </div>
+                    </div>
+                    <div class="card-content" id="moonContent">
+                        <p>Loading moon phase guidance...</p>
+                    </div>
+                </div>
+                
+                <!-- Planetary Transits Card -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <div class="card-icon">♄</div>
+                        <h3 class="card-title">Current Transits</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>The planets are currently positioned as follows, influencing collective and personal energies:</p>
+                        <div class="transit-list" id="transitList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chinese Zodiac Card -->
+                <div class="info-card zodiac-card">
+                    <div class="card-header">
+                        <div class="card-icon">龍</div>
+                        <h3 class="card-title">Chinese Astrology</h3>
+                    </div>
+                    <div class="zodiac-animal" id="zodiacEmoji">🐍</div>
+                    <div class="zodiac-year" id="zodiacYearType">Wood Snake</div>
+                    <div class="card-content" id="chineseContent">
+                        <p>Loading Chinese zodiac interpretation...</p>
+                    </div>
+                </div>
+                
+                <!-- Daily Guidance -->
+                <div class="info-card guidance-card">
+                    <div class="card-header">
+                        <div class="card-icon">✧</div>
+                        <h3 class="card-title">Today's Guidance</h3>
+                    </div>
+                    <p class="guidance-text" id="dailyGuidance">
+                        "Loading your personalized daily guidance..."
+                    </p>
+                </div>
+            </div>
+            
+            <!-- COMPLETE NUMEROLOGY SECTION -->
+            <section class="cycles-section" style="margin-top: 2rem;">
+                <h3 class="section-title">Your Complete Numerology Profile</h3>
+                <p class="section-subtitle">Beyond Life Path: the full numeric blueprint of your existence</p>
+                
+                <div class="cards-grid" style="margin-top: 1.5rem;">
+                    <!-- Expression Number -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #7c3aed, #a855f7);">#</div>
+                            <h3 class="card-title">Expression Number: <span id="expressionNumber">-</span></h3>
+                        </div>
+                        <div class="card-content">
+                            <p><strong class="highlight" id="expressionTitle">-</strong></p>
+                            <p id="expressionDesc">Your natural talents and abilities—what you're here to DO.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Soul Urge -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">♡</div>
+                            <h3 class="card-title">Soul Urge: <span id="soulUrgeNumber">-</span></h3>
+                        </div>
+                        <div class="card-content">
+                            <p><strong class="highlight" id="soulUrgeTitle">-</strong></p>
+                            <p id="soulUrgeDesc">Your deepest desires—what your soul CRAVES.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Personality Number -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">◐</div>
+                            <h3 class="card-title">Personality: <span id="personalityNumber">-</span></h3>
+                        </div>
+                        <div class="card-content">
+                            <p><strong class="highlight">Your Outer Mask</strong></p>
+                            <p id="personalityDesc">How others perceive you on first impression—your public persona.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Birthday Number -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #f97316, #fb923c);">🎂</div>
+                            <h3 class="card-title">Birthday Number: <span id="birthdayNumber">-</span></h3>
+                        </div>
+                        <div class="card-content">
+                            <p><strong class="highlight">Special Talent</strong></p>
+                            <p id="birthdayDesc">A specific gift that supports your life path.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- PERSONAL YEAR & CYCLES SECTION -->
+            <section class="cycles-section" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, var(--bg-card) 100%); border: 1px solid rgba(201, 169, 98, 0.2);">
+                <h3 class="section-title">Your Current Cycles (2026)</h3>
+                <p class="section-subtitle">Where you are in the grand rhythm of time</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <!-- Personal Year -->
+                    <div style="background: var(--bg-elevated); border-radius: 16px; padding: 2rem; border-left: 4px solid var(--gold);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="font-size: 2.5rem; color: var(--gold);" id="personalYearNumber">3</div>
+                            <div>
+                                <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;">Personal Year 2026</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);" id="personalYearTitle">Creative Expression</p>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;" id="personalYearDesc">Loading...</p>
+                        <div style="background: rgba(0,0,0,0.2); border-radius: 10px; padding: 1rem;">
+                            <p style="font-size: 0.85rem; color: var(--gold);"><strong>🎯 Action This Year:</strong></p>
+                            <p style="font-size: 0.9rem; color: var(--text-primary);" id="personalYearAction">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 9-Year Cycle -->
+                    <div style="background: var(--bg-elevated); border-radius: 16px; padding: 2rem; border-left: 4px solid var(--accent-purple);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="font-size: 2.5rem; color: var(--accent-purple);">↻</div>
+                            <div>
+                                <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;">9-Year Cycle Position</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Age <span id="currentAge">-</span></p>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            You are in year <strong class="highlight" id="cyclePosition">-</strong> of your current 9-year cycle.
+                        </p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);" id="cycleDesc">Loading...</p>
+                    </div>
+                </div>
+                
+                <!-- Challenge Numbers -->
+                <div style="margin-top: 1.5rem; background: var(--bg-elevated); border-radius: 16px; padding: 2rem;">
+                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem;">Your Challenge Numbers</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Life lessons you're here to master at different stages:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;" id="challengeNumbers">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- THIS WEEK / MONTH / YEAR GUIDANCE -->
+            <section class="cycles-section" style="margin-top: 2rem;">
+                <h3 class="section-title">How to Use This Knowledge</h3>
+                <p class="section-subtitle">Practical guidance for your current cycles</p>
+                
+                <div class="cycles-grid">
+                    <div class="cycle-item" style="border-left-color: #22c55e;">
+                        <h4>📅 This Week</h4>
+                        <div class="duration">Quick Wins</div>
+                        <p id="thisWeekGuidance">Loading personalized weekly guidance...</p>
+                    </div>
+                    <div class="cycle-item" style="border-left-color: #3b82f6;">
+                        <h4>📆 This Month</h4>
+                        <div class="duration">Building Momentum</div>
+                        <p id="thisMonthGuidance">Loading personalized monthly guidance...</p>
+                    </div>
+                    <div class="cycle-item" style="border-left-color: #f97316;">
+                        <h4>📊 This Year (2026)</h4>
+                        <div class="duration">Strategic Moves</div>
+                        <p id="thisYearGuidance">Loading personalized yearly guidance...</p>
+                    </div>
+                    <div class="cycle-item" style="border-left-color: var(--gold);">
+                        <h4>🌟 Lifetime Pattern</h4>
+                        <div class="duration">The Big Picture</div>
+                        <p id="lifetimeGuidance">Loading lifetime pattern analysis...</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Cosmic Calendar -->
+            <section class="calendar-section">
+                <div class="calendar-header">
+                    <h3 class="calendar-title" id="calendarTitle">January 2025</h3>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">←</button>
+                        <button onclick="changeMonth(1)">→</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Generated by JS -->
+                </div>
+            </section>
+            
+            <!-- Cycles Explanation -->
+            <section class="cycles-section">
+                <h3 class="section-title">Understanding the Cycles</h3>
+                <p class="section-subtitle">Time moves in circles, not lines. Here are the cycles that shape our experience:</p>
+                
+                <div class="cycles-grid">
+                    <div class="cycle-item">
+                        <h4>Lunar Cycle</h4>
+                        <div class="duration">~29.5 Days</div>
+                        <p>The moon's journey from new to full and back. The original calendar, governing tides, emotions, and intuition. New moons plant seeds; full moons bring revelation.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Solar Year</h4>
+                        <div class="duration">365.25 Days</div>
+                        <p>Earth's orbit around the sun, marking the seasons. Your Solar Return (birthday) begins a new personal year with fresh themes and opportunities.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Chinese Zodiac</h4>
+                        <div class="duration">12 Years</div>
+                        <p>Each year ruled by an animal and element. Your birth year animal reveals core personality; the current year animal colors collective experience.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Chinese Grand Cycle</h4>
+                        <div class="duration">60 Years</div>
+                        <p>12 animals × 5 elements = 60 unique combinations. A "Wood Snake" differs from a "Fire Snake." Full cycle completion is a major life milestone.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Saturn Return</h4>
+                        <div class="duration">~29 Years</div>
+                        <p>Saturn returns to its position at your birth around ages 29, 58, and 87. Major life restructuring, maturity milestones, and karmic reckonings.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Jupiter Return</h4>
+                        <div class="duration">~12 Years</div>
+                        <p>Jupiter returns to its natal position roughly every 12 years. Times of expansion, luck, and new philosophical understanding.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Numerology 9-Year Cycle</h4>
+                        <div class="duration">9 Years</div>
+                        <p>Personal years 1-9 each carry distinct energy. Year 1 begins new chapters; Year 9 completes and releases. Add your birth month + day + current year digits.</p>
+                    </div>
+                    <div class="cycle-item">
+                        <h4>Mercury Retrograde</h4>
+                        <div class="duration">~3 Weeks, 3-4x/Year</div>
+                        <p>Mercury appears to move backward. Communication, technology, and travel require extra care. Good for review, revision, and reconnection.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+        
+        <!-- Methodology Section -->
+        <section class="cycles-section" style="margin-top: 2rem;">
+            <h3 class="section-title">Our Methodology</h3>
+            <p class="section-subtitle">Transparency about what we calculate and how</p>
+            
+            <div class="cycles-grid">
+                <div class="cycle-item">
+                    <h4>Life Path Numbers</h4>
+                    <div class="duration">Pythagorean Method</div>
+                    <p>We use the correct 3-cycle method: reduce month, day, and year separately before adding. This preserves Master Numbers (11, 22, 33) that shortcuts miss.</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Western Astrology</h4>
+                    <div class="duration">Tropical Zodiac</div>
+                    <p>Sun signs use the Tropical system (standard in Western astrology). Vedic/Sidereal would place you ~23° earlier. Both are valid traditions.</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Moon Phases</h4>
+                    <div class="duration">Astronomical Calculation</div>
+                    <p>Based on the synodic month (29.53 days). This is objective astronomy—the same data NASA uses, applied to interpretive guidance.</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Chinese Zodiac</h4>
+                    <div class="duration">Lunar Calendar Based</div>
+                    <p>Animals follow the 12-year cycle; elements follow the 10-year stem cycle. Note: Chinese New Year falls Jan-Feb, so early-year births may belong to the previous animal.</p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                The calculations are mathematical. The interpretations draw from traditional sources but remain, as all symbolic systems, frameworks for self-reflection rather than deterministic predictions.
+            </p>
+        </section>
+        </div><!-- End overview-tab -->
+        
+            <!-- Deep Dive Tab -->
+            <div class="tab-content" id="deepdive-tab" style="display: none;">
+                
+                <!-- Birth Chart Section -->
+                <section class="chart-section">
+                    <div class="chart-header">
+                        <div>
+                            <h2 class="section-title">Your Birth Chart</h2>
+                            <p class="section-subtitle">The sky at the moment you were born — a cosmic snapshot</p>
+                        </div>
+                        <div class="birth-time-notice" id="birthTimeNotice">
+                            <span class="notice-icon">ℹ️</span>
+                            <span>Add your birth time for accurate house placements</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Wheel -->
+                    <div class="chart-container">
+                        <svg id="birthChart" viewBox="0 0 500 500" class="birth-chart-svg">
+                            <!-- Background -->
+                            <defs>
+                                <radialGradient id="chartGradient" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#1a1a2e"/>
+                                    <stop offset="100%" style="stop-color:#0a0a0f"/>
+                                </radialGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Outer ring -->
+                            <circle cx="250" cy="250" r="240" fill="none" stroke="rgba(201,169,98,0.3)" stroke-width="1"/>
+                            <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(201,169,98,0.2)" stroke-width="1"/>
+                            <circle cx="250" cy="250" r="140" fill="url(#chartGradient)" stroke="rgba(201,169,98,0.15)" stroke-width="1"/>
+                            <circle cx="250" cy="250" r="60" fill="none" stroke="rgba(201,169,98,0.1)" stroke-width="1"/>
+                            
+                            <!-- House divisions will be drawn by JS -->
+                            <g id="houseLines"></g>
+                            
+                            <!-- Zodiac signs ring -->
+                            <g id="zodiacRing"></g>
+                            
+                            <!-- Planet positions -->
+                            <g id="planetPositions" filter="url(#glow)"></g>
+                            
+                            <!-- Center -->
+                            <circle cx="250" cy="250" r="30" fill="#12121a" stroke="rgba(201,169,98,0.3)" stroke-width="1"/>
+                            <text x="250" y="255" text-anchor="middle" fill="#c9a962" font-size="12" font-family="Cormorant Garamond">YOU</text>
+                        </svg>
+                        
+                        <!-- Chart Legend -->
+                        <div class="chart-legend">
+                            <div class="legend-title">Planets in Your Chart</div>
+                            <div class="legend-grid" id="chartLegend">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- The 12 Houses Explained -->
+                <section class="houses-section">
+                    <h3 class="section-title">The 12 Houses</h3>
+                    <p class="section-subtitle">Each house governs a different domain of life. Planets in a house activate that area.</p>
+                    
+                    <div class="houses-wheel-container">
+                        <svg id="housesWheel" viewBox="0 0 600 400" class="houses-diagram">
+                            <!-- Will be populated by JS -->
+                        </svg>
+                    </div>
+                    
+                    <div class="houses-grid">
+                        <div class="house-card" data-house="1">
+                            <div class="house-number">1</div>
+                            <div class="house-name">Self & Identity</div>
+                            <div class="house-keywords">Ascendant • First Impressions • Physical Body • How You Begin</div>
+                            <p class="house-description">Your rising sign lives here. This is the mask you wear, your default approach to new situations, and your physical vitality.</p>
+                        </div>
+                        <div class="house-card" data-house="2">
+                            <div class="house-number">2</div>
+                            <div class="house-name">Resources & Values</div>
+                            <div class="house-keywords">Money • Possessions • Self-Worth • What You Value</div>
+                            <p class="house-description">Your relationship with material security. Not just what you earn, but what you truly value and how you build stability.</p>
+                        </div>
+                        <div class="house-card" data-house="3">
+                            <div class="house-number">3</div>
+                            <div class="house-name">Communication & Mind</div>
+                            <div class="house-keywords">Siblings • Short Trips • Learning • Daily Interactions</div>
+                            <p class="house-description">How you think, speak, and process information. Your immediate environment, neighbors, and early education.</p>
+                        </div>
+                        <div class="house-card" data-house="4">
+                            <div class="house-number">4</div>
+                            <div class="house-name">Home & Roots</div>
+                            <div class="house-keywords">IC • Family • Ancestry • Private Self • Emotional Foundation</div>
+                            <p class="house-description">Your deepest foundations. Family of origin, sense of belonging, and what "home" means to your soul.</p>
+                        </div>
+                        <div class="house-card" data-house="5">
+                            <div class="house-number">5</div>
+                            <div class="house-name">Creativity & Pleasure</div>
+                            <div class="house-keywords">Romance • Children • Art • Play • Self-Expression</div>
+                            <p class="house-description">What brings you joy. Creative projects, romantic affairs, children, gambling, and anything you do purely for pleasure.</p>
+                        </div>
+                        <div class="house-card" data-house="6">
+                            <div class="house-number">6</div>
+                            <div class="house-name">Health & Service</div>
+                            <div class="house-keywords">Daily Routines • Work • Wellness • Pets • Duty</div>
+                            <p class="house-description">Your daily habits and how you maintain your vessel. Work you do in service to others, health practices, and small animals.</p>
+                        </div>
+                        <div class="house-card" data-house="7">
+                            <div class="house-number">7</div>
+                            <div class="house-name">Partnerships</div>
+                            <div class="house-keywords">Descendant • Marriage • Business Partners • Open Enemies</div>
+                            <p class="house-description">The "other" to your self. Committed relationships, contracts, and what you seek in partnership. Also open adversaries.</p>
+                        </div>
+                        <div class="house-card" data-house="8">
+                            <div class="house-number">8</div>
+                            <div class="house-name">Transformation</div>
+                            <div class="house-keywords">Death/Rebirth • Shared Resources • Intimacy • Occult • Inheritance</div>
+                            <p class="house-description">The deep waters. Other people's money, psychological depths, sexuality, and the transformations that remake you entirely.</p>
+                        </div>
+                        <div class="house-card" data-house="9">
+                            <div class="house-number">9</div>
+                            <div class="house-name">Philosophy & Expansion</div>
+                            <div class="house-keywords">Higher Learning • Travel • Religion • Publishing • Big Picture</div>
+                            <p class="house-description">Your search for meaning. Foreign cultures, universities, spiritual beliefs, and the journey to expand your worldview.</p>
+                        </div>
+                        <div class="house-card" data-house="10">
+                            <div class="house-number">10</div>
+                            <div class="house-name">Career & Legacy</div>
+                            <div class="house-keywords">Midheaven • Public Image • Authority • Achievement • Reputation</div>
+                            <p class="house-description">Your place in the world. Career path, public reputation, and the legacy you're building. How society sees you.</p>
+                        </div>
+                        <div class="house-card" data-house="11">
+                            <div class="house-number">11</div>
+                            <div class="house-name">Community & Vision</div>
+                            <div class="house-keywords">Friends • Groups • Hopes • Social Causes • The Collective</div>
+                            <p class="house-description">Your tribe and your dreams. Friend networks, organizations, humanitarian ideals, and visions for the future.</p>
+                        </div>
+                        <div class="house-card" data-house="12">
+                            <div class="house-number">12</div>
+                            <div class="house-name">The Unconscious</div>
+                            <div class="house-keywords">Hidden Self • Spirituality • Isolation • Dreams • Karma • Undoing</div>
+                            <p class="house-description">The invisible realm. Subconscious patterns, spiritual practices, hidden enemies, institutions, and self-sabotage. Where you dissolve ego.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Current Sky - Planetary Positions NOW -->
+                <section class="sky-section">
+                    <h3 class="section-title">The Current Sky</h3>
+                    <p class="section-subtitle">Where the planets are right now — these transits affect everyone</p>
+                    
+                    <!-- Solar System Visualization -->
+                    <div class="solar-system-container">
+                        <svg id="solarSystem" viewBox="0 0 700 400" class="solar-system-svg">
+                            <defs>
+                                <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#ffd93d"/>
+                                    <stop offset="50%" style="stop-color:#ff9500"/>
+                                    <stop offset="100%" style="stop-color:#ff6b00;stop-opacity:0"/>
+                                </radialGradient>
+                                <filter id="planetGlow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Orbital paths -->
+                            <g id="orbits" opacity="0.3">
+                                <ellipse cx="350" cy="200" rx="50" ry="25" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="90" ry="45" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="130" ry="65" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="170" ry="85" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="210" ry="105" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="260" ry="130" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                                <ellipse cx="350" cy="200" rx="310" ry="155" fill="none" stroke="#4a4a5a" stroke-width="1" stroke-dasharray="4,4"/>
+                            </g>
+                            
+                            <!-- Sun -->
+                            <circle cx="350" cy="200" r="25" fill="url(#sunGlow)"/>
+                            <circle cx="350" cy="200" r="15" fill="#ffd93d"/>
+                            
+                            <!-- Planets will be positioned by JS -->
+                            <g id="planets" filter="url(#planetGlow)"></g>
+                            
+                            <!-- Zodiac belt indicator -->
+                            <g id="zodiacBelt"></g>
+                        </svg>
+                    </div>
+                    
+                    <!-- Detailed Transit Cards -->
+                    <div class="transit-cards-grid">
+                        <div class="transit-detail-card sun-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">☉</span>
+                                <div>
+                                    <h4>Sun</h4>
+                                    <span class="transit-position" id="sunTransit">Capricorn 25°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Identity, vitality, and conscious purpose. The Sun illuminates where collective attention focuses.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card moon-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">☽</span>
+                                <div>
+                                    <h4>Moon</h4>
+                                    <span class="transit-position" id="moonTransit">Virgo 12°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Emotions, instincts, and the subconscious. The Moon colors the emotional weather every 2.5 days.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card mercury-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">☿</span>
+                                <div>
+                                    <h4>Mercury</h4>
+                                    <span class="transit-position" id="mercuryTransit">Capricorn 8°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Communication, thinking, and commerce. Mercury shapes how we process and share information.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card venus-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">♀</span>
+                                <div>
+                                    <h4>Venus</h4>
+                                    <span class="transit-position" id="venusTransit">Pisces 14°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Love, beauty, and values. Venus influences what we're attracted to and how we relate.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card mars-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">♂</span>
+                                <div>
+                                    <h4>Mars</h4>
+                                    <span class="transit-position" id="marsTransit">Cancer 20°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Action, drive, and conflict. Mars energizes and sometimes agitates whatever it touches.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card jupiter-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">♃</span>
+                                <div>
+                                    <h4>Jupiter</h4>
+                                    <span class="transit-position" id="jupiterTransit">Gemini 11°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Expansion, luck, and wisdom. Jupiter magnifies and brings opportunity wherever it travels.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card saturn-transit">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">♄</span>
+                                <div>
+                                    <h4>Saturn</h4>
+                                    <span class="transit-position" id="saturnTransit">Pisces 24°</span>
+                                </div>
+                            </div>
+                            <p class="transit-meaning">Structure, discipline, and limits. Saturn demands maturity and rewards sustained effort.</p>
+                        </div>
+                        
+                        <div class="transit-detail-card outer-planets">
+                            <div class="transit-header">
+                                <span class="planet-symbol large">⛢</span>
+                                <div>
+                                    <h4>Outer Planets</h4>
+                                    <span class="transit-position">Generational Shifts</span>
+                                </div>
+                            </div>
+                            <div class="outer-list">
+                                <div><span>♅ Uranus:</span> <span id="uranusTransit">Taurus 27°</span> — Revolution in values</div>
+                                <div><span>♆ Neptune:</span> <span id="neptuneTransit">Pisces 29°</span> — Dissolving boundaries</div>
+                                <div><span>♇ Pluto:</span> <span id="plutoTransit">Aquarius 3°</span> — Power transformation</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Aspects Section -->
+                <section class="aspects-section">
+                    <h3 class="section-title">Current Aspects</h3>
+                    <p class="section-subtitle">When planets form specific angles, their energies combine</p>
+                    
+                    <div class="aspects-legend">
+                        <div class="aspect-type">
+                            <span class="aspect-symbol conjunction">☌</span>
+                            <span class="aspect-name">Conjunction (0°)</span>
+                            <span class="aspect-quality">Fusion — energies merge</span>
+                        </div>
+                        <div class="aspect-type">
+                            <span class="aspect-symbol sextile">⚹</span>
+                            <span class="aspect-name">Sextile (60°)</span>
+                            <span class="aspect-quality">Opportunity — easy flow</span>
+                        </div>
+                        <div class="aspect-type">
+                            <span class="aspect-symbol square">□</span>
+                            <span class="aspect-name">Square (90°)</span>
+                            <span class="aspect-quality">Tension — growth through friction</span>
+                        </div>
+                        <div class="aspect-type">
+                            <span class="aspect-symbol trine">△</span>
+                            <span class="aspect-name">Trine (120°)</span>
+                            <span class="aspect-quality">Harmony — natural gifts</span>
+                        </div>
+                        <div class="aspect-type">
+                            <span class="aspect-symbol opposition">☍</span>
+                            <span class="aspect-name">Opposition (180°)</span>
+                            <span class="aspect-quality">Polarity — balance needed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="current-aspects" id="currentAspects">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Understanding Transits -->
+                <section class="cycles-section">
+                    <h3 class="section-title">How Transits Work</h3>
+                    <p class="section-subtitle">The moving planets interact with your birth chart, activating different life areas</p>
+                    
+                    <div class="cycles-grid">
+                        <div class="cycle-item">
+                            <h4>Planet Enters a House</h4>
+                            <div class="duration">Duration Varies</div>
+                            <p>When a planet transits through one of your natal houses, it activates that life area. Mars in your 10th house? Career gets energized. Venus in your 7th? Relationships sweeten.</p>
+                        </div>
+                        <div class="cycle-item">
+                            <h4>Planet Aspects Natal Planet</h4>
+                            <div class="duration">Days to Years</div>
+                            <p>When a transiting planet forms an angle to a planet in your birth chart, their energies interact. Saturn squaring your natal Moon might feel heavy; Jupiter trining your Sun brings luck.</p>
+                        </div>
+                        <div class="cycle-item">
+                            <h4>Speed Matters</h4>
+                            <div class="duration">Fast vs Slow</div>
+                            <p>The Moon transits your whole chart monthly — subtle daily shifts. Saturn takes 29 years — profound, lasting transformation. Outer planets can station on a point for months.</p>
+                        </div>
+                        <div class="cycle-item">
+                            <h4>Retrogrades</h4>
+                            <div class="duration">Review Periods</div>
+                            <p>When planets appear to move backward, their energy turns inward. Mercury retrograde reviews communication; Venus retrograde reassesses relationships and values.</p>
+                        </div>
+                    </div>
+                </section>
+            </div><!-- End deepdive-tab -->
+        
+        <!-- PRICING SECTION -->
+        <section class="pricing-section" id="pricingSection" style="margin-top: 2rem;">
+            <h3 class="section-title" style="text-align: center;">Go Deeper</h3>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 2rem;">From free insights to personalized cosmic guidance</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                <!-- Free -->
+                <div class="info-card" style="text-align: center; border: 1px solid rgba(201, 169, 98, 0.2);">
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✧</div>
+                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Free Reading</h4>
+                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$0</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Always free</div>
+                    <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Life Path Number</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Sun Sign & Chinese Zodiac</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Moon Phase Guidance</li>
+                        <li style="padding: 0.5rem 0;">✓ Current Transits</li>
+                    </ul>
+                    <button class="generate-btn" style="background: var(--bg-elevated); color: var(--text-primary);" onclick="document.getElementById('birthDate').focus()">Get Started</button>
+                </div>
+                
+                <!-- Life Essay $5 -->
+                <div class="info-card" style="text-align: center; border: 1px solid rgba(201, 169, 98, 0.2);">
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📜</div>
+                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Life Essay</h4>
+                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$5</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">One-time purchase</div>
+                    <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Everything in Free</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Deep personalized analysis</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Complete cosmic blueprint</li>
+                        <li style="padding: 0.5rem 0;">✓ Downloadable PDF</li>
+                    </ul>
+                    <button class="generate-btn" onclick="purchaseEssay()">Purchase Essay</button>
+                </div>
+                
+                <!-- SMS $10/month -->
+                <div class="info-card" style="text-align: center; border: 2px solid var(--gold); position: relative;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--bg-deep); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em;">MOST POPULAR</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Cosmic SMS</h4>
+                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$10</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">per month</div>
+                    <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Everything in Life Essay</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 3 texts per week</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Timed to moon movements</li>
+                        <li style="padding: 0.5rem 0;">✓ Personalized to YOUR chart</li>
+                    </ul>
+                    <button class="generate-btn" onclick="subscribeSMS()">Subscribe Now</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- DONATION SECTION -->
+        <section style="background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, var(--bg-card) 100%); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 24px; padding: 3rem; text-align: center; margin: 2rem 0;">
+            <h3 class="section-title" style="color: var(--gold);">Support This Work</h3>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 1rem auto 2rem; line-height: 1.7;">
+                Cosmic Self is built to help people understand their place in the universe. If this resonates with you, consider supporting the mission.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                <button class="donation-btn" onclick="selectDonation(5, this)" style="padding: 0.75rem 1.5rem; background: var(--bg-elevated); border: 2px solid rgba(201, 169, 98, 0.2); border-radius: 12px; color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer;">$5</button>
+                <button class="donation-btn selected" onclick="selectDonation(10, this)" style="padding: 0.75rem 1.5rem; background: var(--bg-elevated); border: 2px solid var(--gold); border-radius: 12px; color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer;">$10</button>
+                <button class="donation-btn" onclick="selectDonation(25, this)" style="padding: 0.75rem 1.5rem; background: var(--bg-elevated); border: 2px solid rgba(201, 169, 98, 0.2); border-radius: 12px; color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer;">$25</button>
+                <button class="donation-btn" onclick="selectDonation(50, this)" style="padding: 0.75rem 1.5rem; background: var(--bg-elevated); border: 2px solid rgba(201, 169, 98, 0.2); border-radius: 12px; color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer;">$50</button>
+            </div>
+            <button class="generate-btn" style="max-width: 300px; margin: 0 auto;" onclick="processDonation()">Donate Now</button>
+        </section>
+        
+        <footer>
+            <p class="footer-brand">Cosmic Self</p>
+            <p class="footer-production">An All Walks of Life Production</p>
+        </footer>
+    </div>
+    
+    <!-- AUTH MODAL -->
+    <div id="authModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-card); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 24px; padding: 3rem; max-width: 450px; width: 90%; position: relative;">
+            <button onclick="closeAuthModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer;">×</button>
+            <h2 id="authTitle" style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; text-align: center; color: var(--gold); margin-bottom: 0.5rem;">Welcome</h2>
+            <p id="authSubtitle" style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">Sign in to access premium features</p>
+            
+            <form id="authForm" onsubmit="handleAuth(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div id="nameField" style="display: none;">
+                    <label style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary);">Your Name</label>
+                    <input type="text" name="name" placeholder="How you wish to be known" style="width: 100%; margin-top: 0.5rem; background: var(--bg-elevated); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;">
+                </div>
+                <div>
+                    <label style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary);">Email</label>
+                    <input type="email" name="email" required placeholder="your@email.com" style="width: 100%; margin-top: 0.5rem; background: var(--bg-elevated); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;">
+                </div>
+                <div>
+                    <label style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary);">Password</label>
+                    <input type="password" name="password" required placeholder="••••••••" style="width: 100%; margin-top: 0.5rem; background: var(--bg-elevated); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;">
+                </div>
+                <div id="birthField" style="display: none;">
+                    <label style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary);">Birth Date</label>
+                    <input type="date" name="birthDate" style="width: 100%; margin-top: 0.5rem; background: var(--bg-elevated); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;">
+                </div>
+                <div id="phoneField" style="display: none;">
+                    <label style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary);">Phone (for SMS)</label>
+                    <input type="tel" name="phone" placeholder="+1 555 123 4567" style="width: 100%; margin-top: 0.5rem; background: var(--bg-elevated); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;">
+                </div>
+                <button type="submit" id="authSubmit" class="generate-btn">Sign In</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                <span id="authToggleText">Don't have an account?</span>
+                <a onclick="toggleAuthMode()" style="color: var(--gold); cursor: pointer;"><span id="authToggleLink">Create one</span></a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Generate stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.width = Math.random() * 2 + 1 + 'px';
+                star.style.height = star.style.width;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+        
+        // Data
+        const lifePathMeanings = {
+            1: {
+                title: "The Pioneer",
+                content: "You are here to lead, innovate, and forge new paths. Independence isn't just a preference—it's your soul's requirement. Life Path 1 carries the energy of new beginnings, original ideas, and self-determination. Your challenge is balancing confidence with humility, and learning that true leadership serves others. You're meant to start things, to be first, to show others what's possible when one person commits fully to their vision."
+            },
+            2: {
+                title: "The Diplomat",
+                content: "You are here to connect, harmonize, and heal through relationship. Where others see division, you sense the underlying unity. Life Path 2 carries profound sensitivity and intuition—you feel the undercurrents others miss. Your challenge is maintaining your own center while being so attuned to others. Partnership, patience, and peaceful resolution are your gifts. You remind us that strength often looks like gentleness."
+            },
+            3: {
+                title: "The Communicator",
+                content: "You are here to express, create, and inspire joy. Words, images, and ideas flow through you like water. Life Path 3 carries the energy of creative self-expression in all its forms. Your presence naturally uplifts; your authentic voice has power you may not fully recognize. Your challenge is avoiding superficiality and scattered energy. When you commit to your craft deeply, you become a channel for something beyond yourself."
+            },
+            4: {
+                title: "The Builder",
+                content: "You are here to create lasting foundations and structures that serve others. While some dream, you manifest dreams into reality through patient, dedicated effort. Life Path 4 carries the energy of earth itself—stable, reliable, enduring. Your challenge is flexibility; your greatest strength can become rigidity. You're meant to build things that outlast you: systems, organizations, legacies of practical value."
+            },
+            5: {
+                title: "The Freedom Seeker",
+                content: "You are here to experience, adapt, and liberate. Variety isn't distraction for you—it's how you learn. Life Path 5 carries restless energy that must explore every avenue, taste every experience, question every boundary. Your challenge is finding freedom within commitment, depth within breadth. You're meant to be the bridge between worlds, translating experiences into wisdom that frees others from their limitations."
+            },
+            6: {
+                title: "The Nurturer",
+                content: "You are here to love, serve, and create beauty in community. Responsibility finds you whether you seek it or not. Life Path 6 carries the heart of the cosmic parent—protective, creative, devoted to harmony. Your challenge is avoiding martyrdom and controlling tendencies born from love. Home, family, and aesthetic beauty are your domains. You remind us that care itself is sacred work."
+            },
+            7: {
+                title: "The Seeker",
+                content: "You are here to question, analyze, and penetrate life's mysteries. Where others accept surfaces, you dive deep. Life Path 7 carries the energy of the mystic-scientist—you need both spiritual truth and intellectual understanding. Solitude renews you; shallow interactions drain you. Your challenge is isolation and over-intellectualization. You're meant to bridge inner knowing and outer wisdom, making the invisible visible."
+            },
+            8: {
+                title: "The Powerhouse",
+                content: "You are here to master the material plane and demonstrate that abundance and integrity can coexist. Life Path 8 carries karmic weight around power, money, and authority. What you do with these forces matters greatly. Your challenge is the shadow sides of power—domination, workaholism, defining worth by wealth. You're meant to show that true power empowers others, and that abundance flows from generous hearts."
+            },
+            9: {
+                title: "The Humanitarian",
+                content: "You are here to complete, release, and serve the collective good. You've lived many lives in one—your soul is ancient and compassionate. Life Path 9 carries universal love and creative wisdom, seeing humanity as one family. Your challenge is attachment; you must continually let go to remain effective. You're meant to give without expectation, to inspire through example, to close cycles with grace."
+            },
+            11: {
+                title: "The Intuitive (Master Number)",
+                content: "You carry the gifts of 2 amplified—heightened intuition, spiritual sensitivity, and the capacity to inspire masses. Master Number 11 is a channel for higher wisdom. Your nervous system runs on higher voltage; you feel everything intensely. Your challenge is grounding these downloads into practical form without burning out. You're meant to illuminate, to show others dimensions of reality they've forgotten exist."
+            },
+            22: {
+                title: "The Master Builder (Master Number)",
+                content: "You carry the gifts of 4 amplified—the ability to manifest grand visions into concrete reality. Master Number 22 dreams big and builds bigger. You can turn the impossible into the inevitable through sheer practical mastery. Your challenge is the weight of your own potential; the gap between vision and current reality can feel crushing. You're meant to build institutions, movements, and legacies that reshape civilization."
+            },
+            33: {
+                title: "The Master Teacher (Master Number)",
+                content: "You carry the gifts of 6 amplified—cosmic nurturing, spiritual guidance, and selfless service. Master Number 33 is rare and carries enormous responsibility. You're here to uplift humanity through love made visible and wisdom made accessible. Your challenge is the burden of being an example; you must practice what you teach. You're meant to heal through presence alone, to be a beacon others navigate by."
+            }
+        };
+        
+        // ============== COMPLETE NUMEROLOGY SYSTEM ==============
+        
+        const letterValues = {
+            a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9,
+            j: 1, k: 2, l: 3, m: 4, n: 5, o: 6, p: 7, q: 8, r: 9,
+            s: 1, t: 2, u: 3, v: 4, w: 5, x: 6, y: 7, z: 8
+        };
+        
+        const vowels = ['a', 'e', 'i', 'o', 'u'];
+        
+        function reduceToSingleOrMaster(num) {
+            while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+                num = String(num).split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            }
+            return num;
+        }
+        
+        // Expression Number (Destiny Number) - Full birth name
+        function calculateExpressionNumber(name) {
+            const cleanName = name.toLowerCase().replace(/[^a-z]/g, '');
+            let sum = 0;
+            for (let char of cleanName) {
+                sum += letterValues[char] || 0;
+            }
+            return reduceToSingleOrMaster(sum);
+        }
+        
+        // Soul Urge Number (Heart's Desire) - Vowels only
+        function calculateSoulUrge(name) {
+            const cleanName = name.toLowerCase().replace(/[^a-z]/g, '');
+            let sum = 0;
+            for (let char of cleanName) {
+                if (vowels.includes(char)) {
+                    sum += letterValues[char] || 0;
+                }
+            }
+            return reduceToSingleOrMaster(sum);
+        }
+        
+        // Personality Number - Consonants only
+        function calculatePersonalityNumber(name) {
+            const cleanName = name.toLowerCase().replace(/[^a-z]/g, '');
+            let sum = 0;
+            for (let char of cleanName) {
+                if (!vowels.includes(char)) {
+                    sum += letterValues[char] || 0;
+                }
+            }
+            return reduceToSingleOrMaster(sum);
+        }
+        
+        // Personal Year Number
+        function calculatePersonalYear(birthMonth, birthDay, currentYear) {
+            const sum = birthMonth + birthDay + currentYear.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            return reduceToSingleOrMaster(sum);
+        }
+        
+        // Challenge Numbers (4 challenges in life)
+        function calculateChallengeNumbers(birthMonth, birthDay, birthYear) {
+            const m = reduceToSingleOrMaster(birthMonth);
+            const d = reduceToSingleOrMaster(birthDay);
+            const y = reduceToSingleOrMaster(birthYear.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0));
+            
+            const challenge1 = Math.abs(m - d);
+            const challenge2 = Math.abs(d - y);
+            const challenge3 = Math.abs(challenge1 - challenge2);
+            const challenge4 = Math.abs(m - y);
+            
+            return [challenge1, challenge2, challenge3, challenge4];
+        }
+        
+        // 9-Year Cycle Position
+        function calculateNineYearCycle(birthDate, currentYear) {
+            const birthYear = parseInt(birthDate.split('-')[0]);
+            const age = currentYear - birthYear;
+            const cyclePosition = (age % 9) || 9;
+            return { age, cyclePosition, cycleYear: 10 - cyclePosition };
+        }
+        
+        // Pinnacle Numbers (4 pinnacles - major life periods)
+        function calculatePinnacles(birthMonth, birthDay, birthYear) {
+            const m = reduceToSingleOrMaster(birthMonth);
+            const d = reduceToSingleOrMaster(birthDay);
+            const y = reduceToSingleOrMaster(birthYear.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0));
+            
+            const pinnacle1 = reduceToSingleOrMaster(m + d);
+            const pinnacle2 = reduceToSingleOrMaster(d + y);
+            const pinnacle3 = reduceToSingleOrMaster(pinnacle1 + pinnacle2);
+            const pinnacle4 = reduceToSingleOrMaster(m + y);
+            
+            return [pinnacle1, pinnacle2, pinnacle3, pinnacle4];
+        }
+        
+        // Birth Day Number (just the day reduced)
+        function calculateBirthDayNumber(day) {
+            return reduceToSingleOrMaster(day);
+        }
+        
+        // Numerology Meanings Database
+        const expressionMeanings = {
+            1: { title: "The Leader", desc: "Natural talents for innovation, independence, and pioneering. You're meant to create original work and lead." },
+            2: { title: "The Cooperator", desc: "Gifted in diplomacy, partnership, and mediation. You excel at bringing people together." },
+            3: { title: "The Expresser", desc: "Born communicator with artistic talents. Writing, speaking, performing come naturally." },
+            4: { title: "The Organizer", desc: "Talented at building systems, managing details, and creating order from chaos." },
+            5: { title: "The Adventurer", desc: "Natural ability to adapt, communicate, and embrace change. You thrive in variety." },
+            6: { title: "The Caretaker", desc: "Gifted in nurturing, teaching, and creating beauty. Responsibility comes naturally." },
+            7: { title: "The Analyst", desc: "Talents for research, analysis, and spiritual insight. You see what others miss." },
+            8: { title: "The Executive", desc: "Natural business acumen and leadership. You understand power and resources." },
+            9: { title: "The Humanitarian", desc: "Gifted in inspiring others and serving broad causes. Artistic and compassionate." },
+            11: { title: "The Illuminator", desc: "Master Number: Heightened intuition and spiritual insight. You channel higher wisdom." },
+            22: { title: "The Master Architect", desc: "Master Number: Ability to manifest large-scale visions. You build lasting legacies." },
+            33: { title: "The Master Healer", desc: "Master Number: Profound ability to nurture and teach. You elevate others through love." }
+        };
+        
+        const soulUrgeMeanings = {
+            1: { title: "Desires Independence", desc: "Your soul craves freedom to lead, innovate, and stand alone. You need autonomy." },
+            2: { title: "Desires Connection", desc: "Your soul craves partnership, harmony, and deep emotional bonds." },
+            3: { title: "Desires Expression", desc: "Your soul craves creative outlet, joy, and social connection." },
+            4: { title: "Desires Security", desc: "Your soul craves stability, order, and tangible accomplishment." },
+            5: { title: "Desires Freedom", desc: "Your soul craves adventure, variety, and sensory experience." },
+            6: { title: "Desires Love", desc: "Your soul craves family, beauty, and meaningful responsibility." },
+            7: { title: "Desires Truth", desc: "Your soul craves understanding, solitude, and spiritual depth." },
+            8: { title: "Desires Achievement", desc: "Your soul craves success, recognition, and material mastery." },
+            9: { title: "Desires Service", desc: "Your soul craves meaning through helping humanity." },
+            11: { title: "Desires Enlightenment", desc: "Your soul craves spiritual awakening and inspiring others." },
+            22: { title: "Desires Legacy", desc: "Your soul craves building something that transforms the world." },
+            33: { title: "Desires Healing", desc: "Your soul craves to nurture and uplift on a grand scale." }
+        };
+        
+        const personalYearMeanings = {
+            1: { title: "New Beginnings", desc: "Fresh start year. Plant seeds, initiate projects, assert yourself. What you begin now shapes the next 9 years.", action: "Start ONE major new initiative. Be bold. Don't wait for permission." },
+            2: { title: "Partnership & Patience", desc: "Slow growth year. Cooperate, wait, develop relationships. Seeds planted last year need nurturing.", action: "Collaborate don't compete. Build alliances. Practice patience—forcing things backfires." },
+            3: { title: "Creative Expression", desc: "Expansion year. Create, communicate, be visible. Your creativity and social life bloom.", action: "Share your work publicly. Network actively. This is YOUR year to be seen and heard." },
+            4: { title: "Building Foundations", desc: "Work year. Establish systems, handle details, build structure. Hard work now pays off later.", action: "Create systems and routines. Don't skip steps. Solid foundations only." },
+            5: { title: "Change & Freedom", desc: "Dynamic year. Expect the unexpected. Travel, take risks, embrace change.", action: "Say yes to new opportunities. Don't cling to old patterns. Flexibility is your superpower." },
+            6: { title: "Responsibility & Love", desc: "Family/home year. Obligations increase but so does love. Beautify your environment.", action: "Invest in home and relationships. Accept responsibilities gracefully. Create beauty." },
+            7: { title: "Reflection & Inner Growth", desc: "Introspection year. Study, meditate, seek truth. Less external action, more inner development.", action: "Go deep not wide. Learn something substantial. Solitude is productive, not lonely." },
+            8: { title: "Achievement & Power", desc: "Harvest year. Financial and career matters peak. You reap what you've sown.", action: "Push for promotions, deals, recognition. This is your power year. Claim it." },
+            9: { title: "Completion & Release", desc: "Endings year. Let go of what's finished. Clear space for the new cycle beginning next year.", action: "Release: old projects, relationships, patterns that no longer serve. Don't start major new things." }
+        };
+        
+        const challengeMeanings = {
+            0: "The Challenge of Choice - All paths are open; your challenge is committing to one.",
+            1: "The Challenge of Self - Learning to stand alone without being dominating or dependent.",
+            2: "The Challenge of Sensitivity - Balancing others' needs with your own. Avoiding over-sensitivity.",
+            3: "The Challenge of Expression - Overcoming self-doubt to share your authentic voice.",
+            4: "The Challenge of Limitation - Finding freedom within structure. Avoiding rigidity.",
+            5: "The Challenge of Freedom - Balancing adventure with responsibility. Avoiding excess.",
+            6: "The Challenge of Responsibility - Serving without martyrdom. Caring without controlling.",
+            7: "The Challenge of Faith - Trusting intuition while staying grounded. Avoiding isolation.",
+            8: "The Challenge of Power - Using resources ethically. Balancing material and spiritual."
+        };
+        
+        const chineseZodiacData = {
+            rat: { emoji: "🐀", traits: "Quick-witted, resourceful, versatile, kind. The Rat starts the cycle, bringing new beginnings and clever solutions." },
+            ox: { emoji: "🐂", traits: "Diligent, dependable, strong, determined. The Ox moves steadily toward goals, embodying patience and hard work." },
+            tiger: { emoji: "🐅", traits: "Brave, competitive, unpredictable, confident. The Tiger leaps into action, bringing courage and magnetic charisma." },
+            rabbit: { emoji: "🐇", traits: "Gentle, quiet, elegant, alert. The Rabbit brings grace and diplomacy, skilled at avoiding conflict and finding beauty." },
+            dragon: { emoji: "🐉", traits: "Confident, intelligent, ambitious, charismatic. The Dragon commands attention and creates fortune through boldness." },
+            snake: { emoji: "🐍", traits: "Enigmatic, intelligent, wise, intuitive. The Snake sees beneath surfaces, holding ancient wisdom and transformative power." },
+            horse: { emoji: "🐴", traits: "Animated, active, energetic, adventurous. The Horse gallops toward freedom, bringing enthusiasm and movement." },
+            goat: { emoji: "🐐", traits: "Calm, gentle, creative, thoughtful. The Goat (or Sheep) brings artistic sensitivity and peaceful presence." },
+            monkey: { emoji: "🐵", traits: "Sharp, curious, mischievous, clever. The Monkey innovates and entertains, solving problems with playful brilliance." },
+            rooster: { emoji: "🐓", traits: "Observant, hardworking, courageous, confident. The Rooster announces truth, bringing precision and honest assessment." },
+            dog: { emoji: "🐕", traits: "Loyal, honest, prudent, sincere. The Dog protects and serves, embodying faithfulness and moral clarity." },
+            pig: { emoji: "🐖", traits: "Compassionate, generous, diligent, peace-loving. The Pig completes the cycle with abundance and genuine kindness." }
+        };
+        
+        const elements = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
+        const elementEmojis = { 'Wood': '🌳', 'Fire': '🔥', 'Earth': '🌍', 'Metal': '⚙️', 'Water': '💧' };
+        
+        const moonPhaseGuidance = {
+            'New Moon': "The slate is clean. This is the time to set intentions, plant seeds, and begin new projects. What do you wish to create? The darkness holds infinite potential. Go inward, dream, and declare your desires to the void.",
+            'Waxing Crescent': "Your intentions have taken root. Now nurture them with action. This is a time for planning, gathering resources, and taking the first steps. Faith is required—you can't yet see the full picture.",
+            'First Quarter': "Challenges arise to test your commitment. This is a time for decision, action, and overcoming obstacles. Push through resistance. The tension you feel is growth in disguise.",
+            'Waxing Gibbous': "Refine and adjust. Your creation is taking shape but needs editing. This is a time for patience, trust, and fine-tuning. Don't force; allow things to develop at their own pace.",
+            'Full Moon': "Illumination arrives. What was hidden becomes visible. Emotions run high; insights come flooding in. This is a time for celebration, release, and receiving the fruits of your efforts. Let go of what no longer serves.",
+            'Waning Gibbous': "Share what you've learned. This is a time for gratitude, teaching, and distributing the harvest. Your experience can benefit others. Give generously from your overflow.",
+            'Last Quarter': "Release and let go. What needs to die so new life can emerge? This is a time for forgiveness, completion, and clearing space. Don't cling to what's ending—the cycle requires release.",
+            'Waning Crescent': "Rest and restore. The cycle is completing. This is a time for reflection, dreaming, and preparing the soil for the next New Moon. Surrender, be still, and trust the dark."
+        };
+        
+        // Current planetary positions (simplified approximation for demo)
+        const currentTransits = [
+            { planet: '☉', name: 'Sun', sign: 'Capricorn', meaning: 'Focus on structure and ambition' },
+            { planet: '☽', name: 'Moon', sign: 'calculating...', meaning: 'Emotional currents shift' },
+            { planet: '☿', name: 'Mercury', sign: 'Capricorn', meaning: 'Practical thinking and planning' },
+            { planet: '♀', name: 'Venus', sign: 'Pisces', meaning: 'Compassionate, dreamy love' },
+            { planet: '♂', name: 'Mars', sign: 'Cancer', meaning: 'Protective, nurturing action' },
+            { planet: '♃', name: 'Jupiter', sign: 'Gemini', meaning: 'Expansion through learning' },
+            { planet: '♄', name: 'Saturn', sign: 'Pisces', meaning: 'Structuring dreams and faith' }
+        ];
+        
+        let currentCalendarDate = new Date();
+        
+        // Functions
+        function calculateLifePath(birthDate) {
+            const dateStr = birthDate.replace(/-/g, '');
+            let sum = 0;
+            
+            // Reduce month, day, year separately first
+            const year = birthDate.split('-')[0];
+            const month = birthDate.split('-')[1];
+            const day = birthDate.split('-')[2];
+            
+            function reduceToDigit(num) {
+                while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+                    num = String(num).split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+                }
+                return num;
+            }
+            
+            const yearSum = reduceToDigit(year.split('').reduce((a, b) => parseInt(a) + parseInt(b), 0));
+            const monthSum = reduceToDigit(parseInt(month));
+            const daySum = reduceToDigit(parseInt(day));
+            
+            let total = yearSum + monthSum + daySum;
+            return reduceToDigit(total);
+        }
+        
+        function getSunSign(month, day) {
+            const signs = [
+                { name: 'Capricorn', start: [12, 22], end: [1, 19] },
+                { name: 'Aquarius', start: [1, 20], end: [2, 18] },
+                { name: 'Pisces', start: [2, 19], end: [3, 20] },
+                { name: 'Aries', start: [3, 21], end: [4, 19] },
+                { name: 'Taurus', start: [4, 20], end: [5, 20] },
+                { name: 'Gemini', start: [5, 21], end: [6, 20] },
+                { name: 'Cancer', start: [6, 21], end: [7, 22] },
+                { name: 'Leo', start: [7, 23], end: [8, 22] },
+                { name: 'Virgo', start: [8, 23], end: [9, 22] },
+                { name: 'Libra', start: [9, 23], end: [10, 22] },
+                { name: 'Scorpio', start: [10, 23], end: [11, 21] },
+                { name: 'Sagittarius', start: [11, 22], end: [12, 21] },
+                { name: 'Capricorn', start: [12, 22], end: [12, 31] }
+            ];
+            
+            for (let sign of signs) {
+                if ((month === sign.start[0] && day >= sign.start[1]) ||
+                    (month === sign.end[0] && day <= sign.end[1])) {
+                    return sign.name;
+                }
+            }
+            return 'Capricorn';
+        }
+        
+        function getChineseZodiac(year) {
+            const animals = ['rat', 'ox', 'tiger', 'rabbit', 'dragon', 'snake', 'horse', 'goat', 'monkey', 'rooster', 'dog', 'pig'];
+            const startYear = 1900; // 1900 was a Rat year
+            const index = (year - startYear) % 12;
+            return animals[index >= 0 ? index : index + 12];
+        }
+        
+        function getChineseElement(year) {
+            const cycle = (year - 1924) % 10;
+            const elementIndex = Math.floor(((cycle % 10) + 10) % 10 / 2);
+            return elements[elementIndex];
+        }
+        
+        function getMoonPhase(date) {
+            // Simplified moon phase calculation
+            const synodicMonth = 29.53058867;
+            const knownNewMoon = new Date('2024-01-11').getTime();
+            const diff = date.getTime() - knownNewMoon;
+            const days = diff / (1000 * 60 * 60 * 24);
+            const phase = ((days % synodicMonth) + synodicMonth) % synodicMonth;
+            
+            const illumination = Math.round((1 - Math.cos(2 * Math.PI * phase / synodicMonth)) / 2 * 100);
+            
+            let phaseName, icon;
+            if (phase < 1.85) { phaseName = 'New Moon'; icon = '🌑'; }
+            else if (phase < 7.38) { phaseName = 'Waxing Crescent'; icon = '🌒'; }
+            else if (phase < 9.23) { phaseName = 'First Quarter'; icon = '🌓'; }
+            else if (phase < 14.77) { phaseName = 'Waxing Gibbous'; icon = '🌔'; }
+            else if (phase < 16.61) { phaseName = 'Full Moon'; icon = '🌕'; }
+            else if (phase < 22.15) { phaseName = 'Waning Gibbous'; icon = '🌖'; }
+            else if (phase < 24.00) { phaseName = 'Last Quarter'; icon = '🌗'; }
+            else { phaseName = 'Waning Crescent'; icon = '🌘'; }
+            
+            return { phaseName, icon, illumination, dayInCycle: Math.floor(phase) };
+        }
+        
+        function getDayName(dateStr) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const parts = dateStr.split('-');
+            const date = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            return days[date.getDay()];
+        }
+        
+        function formatDate(dateStr) {
+            // Parse the date string directly to avoid timezone issues
+            const parts = dateStr.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]) - 1; // JS months are 0-indexed
+            const day = parseInt(parts[2]);
+            const date = new Date(year, month, day);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        function generateDailyGuidance(lifePath, moonPhase, sunSign) {
+            const guidances = [
+                `As a Life Path ${lifePath} under today's ${moonPhase}, your innate gifts are amplified. Trust the wisdom that arrives unbidden.`,
+                `The ${moonPhase} invites you to embody your ${lifePath} energy fully. What feels like challenge is actually initiation.`,
+                `With the Sun in ${sunSign} and the ${moonPhase} overhead, remember: you are exactly where you need to be in your journey.`,
+                `Today's ${moonPhase} speaks directly to your Life Path ${lifePath}. Listen to what arises in stillness.`,
+                `The cosmic weather favors your path today. Move with the ${moonPhase}'s rhythm; your ${lifePath} energy knows the way.`
+            ];
+            return guidances[Math.floor(Math.random() * guidances.length)];
+        }
+        
+        function updateMoonShadow(illumination) {
+            const shadow = document.getElementById('moonShadow');
+            const shadowPercent = 100 - illumination;
+            shadow.style.right = '0';
+            shadow.style.width = shadowPercent + '%';
+            shadow.style.borderRadius = illumination > 50 ? '0' : '50% 0 0 50%';
+        }
+        
+        function renderCalendar(date) {
+            const grid = document.getElementById('calendarGrid');
+            const title = document.getElementById('calendarTitle');
+            
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            
+            title.textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            grid.innerHTML = '';
+            
+            // Day headers
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // First day of month
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            
+            // Previous month days
+            const prevMonthDays = new Date(year, month, 0).getDate();
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day other-month';
+                dayEl.innerHTML = `<span class="date">${prevMonthDays - i}</span>`;
+                grid.appendChild(dayEl);
+            }
+            
+            // Current month days
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDate = new Date(year, month, i);
+                const moonData = getMoonPhase(dayDate);
+                const dayEl = document.createElement('div');
+                
+                let classes = 'calendar-day';
+                if (dayDate.toDateString() === today.toDateString()) classes += ' today';
+                if (moonData.phaseName === 'Full Moon') classes += ' full-moon';
+                if (moonData.phaseName === 'New Moon') classes += ' new-moon';
+                
+                dayEl.className = classes;
+                dayEl.innerHTML = `
+                    <span class="date">${i}</span>
+                    <span class="moon-mini">${moonData.icon}</span>
+                `;
+                dayEl.title = moonData.phaseName;
+                grid.appendChild(dayEl);
+            }
+            
+            // Next month days
+            const totalCells = grid.children.length;
+            const remaining = 49 - totalCells; // 7 headers + 42 days max
+            for (let i = 1; i <= remaining && i <= 14; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day other-month';
+                dayEl.innerHTML = `<span class="date">${i}</span>`;
+                grid.appendChild(dayEl);
+            }
+        }
+        
+        function changeMonth(delta) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+            renderCalendar(currentCalendarDate);
+        }
+        
+        function renderTransits() {
+            const list = document.getElementById('transitList');
+            const moonData = getMoonPhase(new Date());
+            
+            // Update moon sign in transits (approximate)
+            const moonSigns = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+            const moonSignIndex = Math.floor((moonData.dayInCycle / 29.5) * 12) % 12;
+            currentTransits[1].sign = moonSigns[moonSignIndex];
+            
+            list.innerHTML = currentTransits.map(t => `
+                <div class="transit-item">
+                    <span class="transit-planet">${t.planet}</span>
+                    <span class="transit-text">${t.name} in</span>
+                    <span class="transit-sign">${t.sign}</span>
+                </div>
+            `).join('');
+        }
+        
+        function generateReading() {
+            const birthDate = document.getElementById('birthDate').value;
+            if (!birthDate) {
+                alert('Please enter your birth date');
+                return;
+            }
+            
+            const userName = document.getElementById('userName').value || 'Cosmic Seeker';
+            const birthTime = document.getElementById('birthTime').value;
+            const birthPlace = document.getElementById('birthPlace').value;
+            
+            const dateParts = birthDate.split('-');
+            const year = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]);
+            const day = parseInt(dateParts[2]);
+            const currentYear = new Date().getFullYear();
+            
+            // ============== CALCULATE EVERYTHING ==============
+            
+            // Basic
+            const lifePath = calculateLifePath(birthDate);
+            const sunSign = getSunSign(month, day);
+            const chineseAnimal = getChineseZodiac(year);
+            const chineseElement = getChineseElement(year);
+            const birthDayName = getDayName(birthDate);
+            const moonData = getMoonPhase(new Date());
+            
+            // Complete Numerology
+            const expressionNum = calculateExpressionNumber(userName);
+            const soulUrgeNum = calculateSoulUrge(userName);
+            const personalityNum = calculatePersonalityNumber(userName);
+            const birthdayNum = calculateBirthDayNumber(day);
+            const personalYear = calculatePersonalYear(month, day, currentYear);
+            const challenges = calculateChallengeNumbers(month, day, year);
+            const nineYearCycle = calculateNineYearCycle(birthDate, currentYear);
+            const pinnacles = calculatePinnacles(month, day, year);
+            
+            // ============== UPDATE BASIC PROFILE ==============
+            
+            document.getElementById('profileName').textContent = userName;
+            document.getElementById('profileDate').textContent = `Born ${formatDate(birthDate)}${birthPlace ? ' in ' + birthPlace : ''}`;
+            document.getElementById('lifePathNumber').textContent = lifePath;
+            document.getElementById('sunSign').textContent = sunSign;
+            document.getElementById('chineseZodiac').textContent = chineseAnimal.charAt(0).toUpperCase() + chineseAnimal.slice(1);
+            document.getElementById('chineseIcon').textContent = chineseZodiacData[chineseAnimal].emoji;
+            document.getElementById('chineseElement').textContent = chineseElement;
+            document.getElementById('elementIcon').textContent = elementEmojis[chineseElement];
+            document.getElementById('birthDay').textContent = birthDayName;
+            
+            // Life Path Card
+            document.getElementById('lifePathTitle').textContent = lifePath;
+            const lpData = lifePathMeanings[lifePath] || lifePathMeanings[7];
+            document.getElementById('lifePathContent').innerHTML = `
+                <p><strong class="highlight">${lpData.title}</strong></p>
+                <p>${lpData.content}</p>
+            `;
+            
+            // Moon Card
+            document.getElementById('moonPhaseName').textContent = moonData.phaseName;
+            document.getElementById('moonIllumination').textContent = moonData.illumination + '% Illuminated';
+            document.getElementById('moonSign').textContent = 'Day ' + (moonData.dayInCycle + 1) + ' of lunar cycle';
+            document.getElementById('moonContent').innerHTML = `<p>${moonPhaseGuidance[moonData.phaseName]}</p>`;
+            updateMoonShadow(moonData.illumination);
+            
+            // Chinese Zodiac Card
+            document.getElementById('zodiacEmoji').textContent = chineseZodiacData[chineseAnimal].emoji;
+            document.getElementById('zodiacYearType').textContent = chineseElement + ' ' + chineseAnimal.charAt(0).toUpperCase() + chineseAnimal.slice(1);
+            document.getElementById('chineseContent').innerHTML = `<p>${chineseZodiacData[chineseAnimal].traits}</p>`;
+            
+            // Daily Guidance
+            document.getElementById('dailyGuidance').textContent = `"${generateDailyGuidance(lifePath, moonData.phaseName, sunSign)}"`;
+            
+            // ============== UPDATE COMPLETE NUMEROLOGY ==============
+            
+            // Expression Number
+            document.getElementById('expressionNumber').textContent = expressionNum;
+            const expData = expressionMeanings[expressionNum] || expressionMeanings[1];
+            document.getElementById('expressionTitle').textContent = expData.title;
+            document.getElementById('expressionDesc').textContent = expData.desc;
+            
+            // Soul Urge
+            document.getElementById('soulUrgeNumber').textContent = soulUrgeNum;
+            const soulData = soulUrgeMeanings[soulUrgeNum] || soulUrgeMeanings[1];
+            document.getElementById('soulUrgeTitle').textContent = soulData.title;
+            document.getElementById('soulUrgeDesc').textContent = soulData.desc;
+            
+            // Personality Number
+            document.getElementById('personalityNumber').textContent = personalityNum;
+            document.getElementById('personalityDesc').textContent = `Your ${personalityNum} personality projects ${['independence', 'diplomacy', 'charm', 'reliability', 'charisma', 'warmth', 'mystery', 'authority', 'wisdom'][personalityNum - 1] || 'uniqueness'} to the world.`;
+            
+            // Birthday Number
+            document.getElementById('birthdayNumber').textContent = birthdayNum;
+            const birthdayTraits = {
+                1: 'leadership and originality',
+                2: 'cooperation and sensitivity', 
+                3: 'creativity and communication',
+                4: 'organization and determination',
+                5: 'adaptability and resourcefulness',
+                6: 'nurturing and responsibility',
+                7: 'analysis and intuition',
+                8: 'ambition and business sense',
+                9: 'compassion and global awareness'
+            };
+            document.getElementById('birthdayDesc').textContent = `Born on the ${day}${day === 1 ? 'st' : day === 2 ? 'nd' : day === 3 ? 'rd' : 'th'}, you carry a special gift for ${birthdayTraits[birthdayNum] || 'unique expression'}.`;
+            
+            // ============== UPDATE CYCLES ==============
+            
+            // Personal Year
+            document.getElementById('personalYearNumber').textContent = personalYear;
+            const pyData = personalYearMeanings[personalYear] || personalYearMeanings[1];
+            document.getElementById('personalYearTitle').textContent = pyData.title;
+            document.getElementById('personalYearDesc').textContent = pyData.desc;
+            document.getElementById('personalYearAction').textContent = pyData.action;
+            
+            // 9-Year Cycle
+            document.getElementById('currentAge').textContent = nineYearCycle.age;
+            document.getElementById('cyclePosition').textContent = nineYearCycle.cyclePosition;
+            const cycleDescriptions = {
+                1: "You're starting a fresh 9-year chapter. This is a powerful reset—what you initiate now shapes the next decade.",
+                2: "Year 2 of your cycle. Seeds are germinating. Patience and partnerships are key.",
+                3: "Year 3—expansion and expression. Your work from years 1-2 is becoming visible.",
+                4: "Year 4—building foundations. Hard work now creates lasting structure.",
+                5: "Year 5—midpoint. Change and freedom call. Reassess and adjust course.",
+                6: "Year 6—responsibility peaks. Home, family, and commitments demand attention.",
+                7: "Year 7—reflection. Go deep, learn, reassess. Less external action, more inner growth.",
+                8: "Year 8—harvest. Reap what you've sown. Recognition and achievement peak.",
+                9: "Year 9—completion. Release what's finished. Clear space for the next cycle beginning soon."
+            };
+            document.getElementById('cycleDesc').textContent = cycleDescriptions[nineYearCycle.cyclePosition] || cycleDescriptions[1];
+            
+            // Challenge Numbers
+            const challengeLabels = ['Early Life', 'Middle Years', 'Peak Challenge', 'Later Life'];
+            document.getElementById('challengeNumbers').innerHTML = challenges.map((c, i) => `
+                <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 10px;">
+                    <div style="font-size: 1.5rem; color: var(--gold);">${c}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">${challengeLabels[i]}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);">${challengeMeanings[c] || challengeMeanings[1]}</div>
+                </div>
+            `).join('');
+            
+            // ============== PERSONALIZED GUIDANCE ==============
+            
+            // This Week
+            const weekGuidance = {
+                1: `Life Path ${lifePath} thrives on quick wins. Set ONE achievable goal and complete it.`,
+                2: `With ${moonData.phaseName}, focus on ${moonData.phaseName.includes('New') ? 'setting intentions' : moonData.phaseName.includes('Full') ? 'receiving insights' : 'steady progress'}.`,
+                3: `Your ${sunSign} energy this week benefits from ${['bold action', 'grounded planning', 'creative expression', 'emotional awareness'][Math.floor(Math.random() * 4)]}.`
+            };
+            document.getElementById('thisWeekGuidance').textContent = `${weekGuidance[1]} ${weekGuidance[2]}`;
+            
+            // This Month
+            document.getElementById('thisMonthGuidance').textContent = `Personal Year ${personalYear} (${pyData.title}) combined with your Life Path ${lifePath} means this month is ideal for ${personalYear <= 3 ? 'initiating and creating' : personalYear <= 6 ? 'building and nurturing' : 'harvesting and releasing'}. Don't force—work with the rhythm.`;
+            
+            // This Year
+            document.getElementById('thisYearGuidance').textContent = `2026 is your Personal Year ${personalYear}. ${pyData.action} Your Life Path ${lifePath} + ${sunSign} Sun + Personal Year ${personalYear} = a year to ${personalYear === 3 ? 'go PUBLIC with your knowledge and collaborate' : personalYear < 5 ? 'build foundations' : 'harvest and release old patterns'}.`;
+            
+            // Lifetime Pattern
+            document.getElementById('lifetimeGuidance').textContent = `You're in year ${nineYearCycle.cyclePosition} of your 9-year cycle (age ${nineYearCycle.age}). ${nineYearCycle.cyclePosition <= 3 ? 'You\'re in the BUILDING phase—plant seeds, initiate, create.' : nineYearCycle.cyclePosition <= 6 ? 'You\'re in the DEVELOPING phase—nurture what exists, handle responsibilities.' : 'You\'re in the COMPLETION phase—harvest results, release, prepare for the next cycle.'} In ${9 - nineYearCycle.cyclePosition + 1} years, a new 9-year chapter begins.`;
+            
+            // Show results
+            document.getElementById('resultsSection').classList.add('active');
+            
+            // Scroll to results
+            setTimeout(() => {
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        
+        // Initialize
+        function init() {
+            const now = new Date();
+            const moonData = getMoonPhase(now);
+            
+            // Header updates
+            document.getElementById('headerMoon').textContent = moonData.icon;
+            document.getElementById('headerPhase').textContent = moonData.phaseName;
+            document.getElementById('headerSunSign').textContent = getSunSign(now.getMonth() + 1, now.getDate());
+            document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            
+            renderCalendar(currentCalendarDate);
+            renderTransits();
+        }
+        
+        init();
+        
+        // ============== AUTH & PAYMENT FUNCTIONS ==============
+        
+        let currentUser = null;
+        let selectedDonationAmount = 10;
+        let authMode = 'login';
+        
+        function showAuthModal(mode) {
+            authMode = mode || 'login';
+            updateAuthModal();
+            document.getElementById('authModal').style.display = 'flex';
+        }
+        
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+        
+        function toggleAuthMode() {
+            authMode = authMode === 'login' ? 'register' : 'login';
+            updateAuthModal();
+        }
+        
+        function updateAuthModal() {
+            const isRegister = authMode === 'register';
+            document.getElementById('authTitle').textContent = isRegister ? 'Join Cosmic Self' : 'Welcome Back';
+            document.getElementById('authSubtitle').textContent = isRegister ? 'Create your cosmic profile' : 'Sign in to access premium features';
+            document.getElementById('authSubmit').textContent = isRegister ? 'Create Account' : 'Sign In';
+            document.getElementById('authToggleText').textContent = isRegister ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('authToggleLink').textContent = isRegister ? 'Sign in' : 'Create one';
+            
+            document.getElementById('nameField').style.display = isRegister ? 'block' : 'none';
+            document.getElementById('birthField').style.display = isRegister ? 'block' : 'none';
+            document.getElementById('phoneField').style.display = isRegister ? 'block' : 'none';
+        }
+        
+        async function handleAuth(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            const endpoint = authMode === 'register' ? '/api/auth/register' : '/api/auth/login';
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('token', result.token);
+                    currentUser = result.user;
+                    closeAuthModal();
+                    alert('Welcome, ' + (currentUser.name || 'Cosmic Seeker') + '!');
+                } else {
+                    alert(result.error || 'Authentication failed');
+                }
+            } catch (error) {
+                console.error('Auth error:', error);
+                // For demo without backend, simulate success
+                alert('Note: Backend not connected. In production, this would authenticate you.');
+            }
+        }
+        
+        function selectDonation(amount, btn) {
+            selectedDonationAmount = amount;
+            document.querySelectorAll('.donation-btn').forEach(b => {
+                b.style.borderColor = 'rgba(201, 169, 98, 0.2)';
+            });
+            if (btn) btn.style.borderColor = 'var(--gold)';
+        }
+        
+        async function processDonation() {
+            try {
+                const response = await fetch('/api/stripe/donate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: selectedDonationAmount * 100 })
+                });
+                
+                const result = await response.json();
+                if (result.url) {
+                    window.location.href = result.url;
+                }
+            } catch (error) {
+                // For demo without backend
+                alert('Donation feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
+            }
+        }
+        
+        async function purchaseEssay() {
+            if (!currentUser && !localStorage.getItem('token')) {
+                showAuthModal('register');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/stripe/life-essay', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                
+                const result = await response.json();
+                if (result.url) {
+                    window.location.href = result.url;
+                }
+            } catch (error) {
+                alert('Purchase feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
+            }
+        }
+        
+        async function subscribeSMS() {
+            if (!currentUser && !localStorage.getItem('token')) {
+                showAuthModal('register');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/stripe/subscribe-sms', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                
+                const result = await response.json();
+                if (result.url) {
+                    window.location.href = result.url;
+                }
+            } catch (error) {
+                alert('Subscription feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
+            }
+        }
+        
+        // Check for existing session on load
+        (function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                fetch('/api/auth/me', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .then(r => r.ok ? r.json() : Promise.reject())
+                .then(user => { currentUser = user; })
+                .catch(() => localStorage.removeItem('token'));
+            }
+        })();
+        
+        // Tab switching
+        function switchTab(tabName) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.tab-btn').classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            
+            // Initialize visualizations if switching to deep dive
+            if (tabName === 'deepdive') {
+                renderBirthChart();
+                renderSolarSystem();
+                renderCurrentAspects();
+            }
+        }
+        
+        // Zodiac data for chart
+        const zodiacSigns = [
+            { name: 'Aries', symbol: '♈', color: '#ef4444' },
+            { name: 'Taurus', symbol: '♉', color: '#22c55e' },
+            { name: 'Gemini', symbol: '♊', color: '#eab308' },
+            { name: 'Cancer', symbol: '♋', color: '#6366f1' },
+            { name: 'Leo', symbol: '♌', color: '#f97316' },
+            { name: 'Virgo', symbol: '♏', color: '#84cc16' },
+            { name: 'Libra', symbol: '♎', color: '#ec4899' },
+            { name: 'Scorpio', symbol: '♏', color: '#7c3aed' },
+            { name: 'Sagittarius', symbol: '♐', color: '#8b5cf6' },
+            { name: 'Capricorn', symbol: '♑', color: '#6b7280' },
+            { name: 'Aquarius', symbol: '♒', color: '#3b82f6' },
+            { name: 'Pisces', symbol: '♓', color: '#14b8a6' }
+        ];
+        
+        const planetData = [
+            { name: 'Sun', symbol: '☉', color: '#ffd93d', orbit: 50 },
+            { name: 'Moon', symbol: '☽', color: '#c9c5bd', orbit: 50 },
+            { name: 'Mercury', symbol: '☿', color: '#a78bfa', orbit: 90 },
+            { name: 'Venus', symbol: '♀', color: '#f472b6', orbit: 130 },
+            { name: 'Mars', symbol: '♂', color: '#ef4444', orbit: 170 },
+            { name: 'Jupiter', symbol: '♃', color: '#f97316', orbit: 210 },
+            { name: 'Saturn', symbol: '♄', color: '#9ca3af', orbit: 260 }
+        ];
+        
+        // Current planetary positions (approximate for Jan 2025)
+        const currentPlanetPositions = {
+            Sun: { sign: 'Capricorn', degree: 25, house: 10 },
+            Moon: { sign: 'Virgo', degree: 12, house: 6 },
+            Mercury: { sign: 'Capricorn', degree: 8, house: 10 },
+            Venus: { sign: 'Pisces', degree: 14, house: 12 },
+            Mars: { sign: 'Cancer', degree: 20, house: 4 },
+            Jupiter: { sign: 'Gemini', degree: 11, house: 3 },
+            Saturn: { sign: 'Pisces', degree: 24, house: 12 },
+            Uranus: { sign: 'Taurus', degree: 27, house: 2 },
+            Neptune: { sign: 'Pisces', degree: 29, house: 12 },
+            Pluto: { sign: 'Aquarius', degree: 3, house: 11 }
+        };
+        
+        function renderBirthChart() {
+            const svg = document.getElementById('birthChart');
+            const houseLines = document.getElementById('houseLines');
+            const zodiacRing = document.getElementById('zodiacRing');
+            const planetPositions = document.getElementById('planetPositions');
+            const legend = document.getElementById('chartLegend');
+            
+            const cx = 250, cy = 250;
+            const outerR = 220, innerR = 145;
+            
+            // Draw house lines
+            houseLines.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * 30 - 90) * Math.PI / 180;
+                const x1 = cx + innerR * Math.cos(angle);
+                const y1 = cy + innerR * Math.sin(angle);
+                const x2 = cx + outerR * Math.cos(angle);
+                const y2 = cy + outerR * Math.sin(angle);
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', 'rgba(201,169,98,0.2)');
+                line.setAttribute('stroke-width', '1');
+                houseLines.appendChild(line);
+            }
+            
+            // Draw zodiac signs
+            zodiacRing.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * 30 + 15 - 90) * Math.PI / 180;
+                const r = (outerR + innerR) / 2 + 15;
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('fill', zodiacSigns[i].color);
+                text.setAttribute('font-size', '16');
+                text.textContent = zodiacSigns[i].symbol;
+                zodiacRing.appendChild(text);
+            }
+            
+            // Draw house numbers
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * 30 + 15 - 90) * Math.PI / 180;
+                const r = innerR - 25;
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('fill', 'rgba(201,169,98,0.4)');
+                text.setAttribute('font-size', '11');
+                text.textContent = i + 1;
+                zodiacRing.appendChild(text);
+            }
+            
+            // Place planets (using current positions as proxy for natal)
+            planetPositions.innerHTML = '';
+            legend.innerHTML = '';
+            
+            const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'];
+            planets.forEach((planet, idx) => {
+                const pos = currentPlanetPositions[planet];
+                const signIndex = zodiacSigns.findIndex(z => z.name === pos.sign);
+                const angle = ((signIndex * 30) + pos.degree - 90) * Math.PI / 180;
+                const r = innerR - 55 - (idx % 3) * 15;
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                
+                // Planet circle
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', 14);
+                circle.setAttribute('fill', planetData[idx].color);
+                circle.setAttribute('opacity', '0.9');
+                planetPositions.appendChild(circle);
+                
+                // Planet symbol
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y + 1);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('fill', '#0a0a0f');
+                text.setAttribute('font-size', '12');
+                text.setAttribute('font-weight', 'bold');
+                text.textContent = planetData[idx].symbol;
+                planetPositions.appendChild(text);
+                
+                // Legend item
+                legend.innerHTML += `
+                    <div class="legend-item">
+                        <span class="planet-symbol" style="color: ${planetData[idx].color}">${planetData[idx].symbol}</span>
+                        <span class="planet-name">${planet}</span>
+                        <span class="planet-sign">${pos.sign} ${pos.degree}°</span>
+                    </div>
+                `;
+            });
+        }
+        
+        function renderSolarSystem() {
+            const planets = document.getElementById('planets');
+            planets.innerHTML = '';
+            
+            const cx = 350, cy = 200;
+            const planetInfo = [
+                { name: 'Mercury', color: '#a78bfa', size: 6, orbitX: 50, orbitY: 25, angle: 280 },
+                { name: 'Venus', color: '#f472b6', size: 8, orbitX: 90, orbitY: 45, angle: 340 },
+                { name: 'Earth', color: '#3b82f6', size: 8, orbitX: 130, orbitY: 65, angle: 200 },
+                { name: 'Mars', color: '#ef4444', size: 7, orbitX: 170, orbitY: 85, angle: 110 },
+                { name: 'Jupiter', color: '#f97316', size: 14, orbitX: 210, orbitY: 105, angle: 70 },
+                { name: 'Saturn', color: '#9ca3af', size: 12, orbitX: 260, orbitY: 130, angle: 320 },
+                { name: 'Uranus', color: '#14b8a6', size: 10, orbitX: 310, orbitY: 155, angle: 45 }
+            ];
+            
+            planetInfo.forEach(p => {
+                const rad = p.angle * Math.PI / 180;
+                const x = cx + p.orbitX * Math.cos(rad);
+                const y = cy + p.orbitY * Math.sin(rad) * 0.5;
+                
+                // Planet
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', p.size);
+                circle.setAttribute('fill', p.color);
+                planets.appendChild(circle);
+                
+                // Label
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y + p.size + 14);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('fill', '#8b8b99');
+                text.setAttribute('font-size', '10');
+                text.textContent = p.name;
+                planets.appendChild(text);
+                
+                // Saturn rings
+                if (p.name === 'Saturn') {
+                    const ring = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ring.setAttribute('cx', x);
+                    ring.setAttribute('cy', y);
+                    ring.setAttribute('rx', p.size + 8);
+                    ring.setAttribute('ry', 4);
+                    ring.setAttribute('fill', 'none');
+                    ring.setAttribute('stroke', '#c9a962');
+                    ring.setAttribute('stroke-width', '2');
+                    ring.setAttribute('opacity', '0.6');
+                    planets.appendChild(ring);
+                }
+            });
+            
+            // Update transit positions text
+            document.getElementById('sunTransit').textContent = 'Capricorn 25°';
+            document.getElementById('moonTransit').textContent = 'Virgo 12°';
+            document.getElementById('mercuryTransit').textContent = 'Capricorn 8°';
+            document.getElementById('venusTransit').textContent = 'Pisces 14°';
+            document.getElementById('marsTransit').textContent = 'Cancer 20°';
+            document.getElementById('jupiterTransit').textContent = 'Gemini 11°';
+            document.getElementById('saturnTransit').textContent = 'Pisces 24°';
+            document.getElementById('uranusTransit').textContent = 'Taurus 27°';
+            document.getElementById('neptuneTransit').textContent = 'Pisces 29°';
+            document.getElementById('plutoTransit').textContent = 'Aquarius 3°';
+        }
+        
+        function renderCurrentAspects() {
+            const container = document.getElementById('currentAspects');
+            
+            const aspects = [
+                { p1: '☉', p2: '☿', type: 'conjunction', name: 'Sun conjunct Mercury', desc: 'Clear thinking, mental focus' },
+                { p1: '♀', p2: '♄', type: 'conjunction', name: 'Venus conjunct Saturn', desc: 'Serious commitments in love' },
+                { p1: '☽', p2: '♃', type: 'square', name: 'Moon square Jupiter', desc: 'Emotional excess, overindulgence' },
+                { p1: '♂', p2: '♄', type: 'trine', name: 'Mars trine Saturn', desc: 'Disciplined action, endurance' },
+                { p1: '♃', p2: '♇', type: 'trine', name: 'Jupiter trine Pluto', desc: 'Transformative growth, power' },
+                { p1: '☉', p2: '♅', type: 'trine', name: 'Sun trine Uranus', desc: 'Innovation, sudden insights' }
+            ];
+            
+            const aspectSymbols = {
+                conjunction: '☌',
+                sextile: '⚹',
+                square: '□',
+                trine: '△',
+                opposition: '☍'
+            };
+            
+            container.innerHTML = aspects.map(a => `
+                <div class="aspect-card" style="border-left-color: ${getAspectColor(a.type)}">
+                    <div class="aspect-planets">
+                        <span>${a.p1}</span>
+                        <span class="aspect-glyph" style="color: ${getAspectColor(a.type)}">${aspectSymbols[a.type]}</span>
+                        <span>${a.p2}</span>
+                    </div>
+                    <div class="aspect-info">
+                        <div class="aspect-title">${a.name}</div>
+                        <div class="aspect-desc">${a.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function getAspectColor(type) {
+            const colors = {
+                conjunction: '#ffd93d',
+                sextile: '#22c55e',
+                square: '#ef4444',
+                trine: '#3b82f6',
+                opposition: '#f97316'
+            };
+            return colors[type] || '#c9a962';
+        }
+    </script>
+</body>
+</html>
