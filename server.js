@@ -307,6 +307,56 @@ app.post('/api/stripe/subscribe-sms', authenticateToken, async (req, res) => {
     }
 });
 
+// Unified checkout session for products (Year Essay, Reading List, Life Essay, SMS)
+app.post('/api/create-checkout-session', async (req, res) => {
+        try {
+                    const { priceId, productType, productName, userData } = req.body;
+
+                    const products = {
+                                    yearEssay: { amount: 500, name: 'Year Essay', description: '5 paragraphs of personalized year guidance' },
+                                    readingList: { amount: 500, name: 'Reading List', description: 'Personalized cosmic reading recommendations' },
+                                    lifeEssay: { amount: 1500, name: 'Life Essay', description: '15 paragraphs of lifelong cosmic analysis' },
+                                    cosmicSMS: { amount: 1000, name: 'Cosmic SMS', description: '3 weekly texts + monthly paragraph', recurring: true }
+                    };
+
+                    const product = products[priceId] || products.yearEssay;
+
+                    const sessionConfig = {
+                                    payment_method_types: ['card'],
+                                    line_items: [{
+                                                        price_data: {
+                                                                                currency: 'usd',
+                                                                                product_data: {
+                                                                                                            name: product.name,
+                                                                                                            description: product.description
+                                                                                    },
+                                                                                unit_amount: product.amount,
+                                                                                ...(product.recurring && { recurring: { interval: 'month' } })
+                                                        },
+                                                        quantity: 1
+                                    }],
+                                    mode: product.recurring ? 'subscription' : 'payment',
+                                    success_url: `${process.env.BASE_URL || 'http://localhost:3000'}/success?type=${priceId}`,
+                                    cancel_url: `${process.env.BASE_URL || 'http://localhost:3000'}/#pricing`,
+                                    metadata: {
+                                                        productName: product.name,
+                                                        userName: userData?.name || '',
+                                                        birthDate: userData?.birthDate || '',
+                                                        birthTime: userData?.birthTime || 'not provided',
+                                                        birthLocation: userData?.birthLocation || 'not provided'
+                                    }
+                    };
+
+                    const session = await stripe.checkout.sessions.create(sessionConfig);
+                    res.json({ id: session.id });
+        } catch (error) {
+                    console.error('Checkout session error:', error);
+                    res.status(500).json({ error: 'Failed to create checkout session' });
+        }
+});
+
+
+
 // Stripe Webhook
 app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
