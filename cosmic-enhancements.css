@@ -1,0 +1,131 @@
+/* COSMIC SELF - ENHANCEMENTS STYLES */
+
+/* Admin Badge */
+#adminBadge {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, #c9a962, #e8d5a3);
+      color: #0a0a0f;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 9999;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(201, 169, 98, 0.4);
+}
+
+#adminBadge:hover { transform: scale(1.05); }
+
+/* Loading Overlay */
+#cosmicLoading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 15, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+}
+
+.loading-content { text-align: center; color: #f0ebe3; }
+
+.loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(201, 169, 98, 0.3);
+      border-top-color: #c9a962;
+      border-radius: 50%;
+      animation: cosmicSpin 1s linear infinite;
+      margin: 0 auto 20px;
+}
+
+@keyframes cosmicSpin { to { transform: rotate(360deg); } }
+
+/* Birth Time Info */
+.birth-time-info { margin-top: 12px; text-align: left; }
+.info-toggle { color: #8b8b99; cursor: pointer; font-size: 14px; }
+.info-toggle:hover { color: #c9a962; }
+.birth-time-details {
+      margin-top: 16px;
+      padding: 20px;
+      background: #12121a;
+      border-radius: 12px;
+      border: 1px solid rgba(201, 169, 98, 0.2);
+}
+
+/* Transit Explanations */
+.transit-explanation {
+      margin-top: 32px;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.3));
+      border-radius: 16px;
+      border: 1px solid rgba(201, 169, 98, 0.2);
+}
+
+.transit-summary-box {
+      background: rgba(201, 169, 98, 0.1);
+      border-left: 3px solid #c9a962;
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+}
+
+.transit-summary-box h5 { color: #c9a962; margin-bottom: 8px; font-size: 14px; }
+.transit-summary-box p { color: #f0ebe3; font-size: 15px; line-height: 1.6; }
+
+.personalized-prompt { margin-top: 24px; text-align: center; }
+.personalized-prompt p { color: #8b8b99; font-size: 14px; margin-bottom: 12px; }
+
+/* CTA Buttons */
+.cta-small {
+      background: linear-gradient(135deg, #c9a962, #e8d5a3);
+      color: #0a0a0f;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-size: 14px;
+}
+
+.cta-small:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(201, 169, 98, 0.4);
+}
+
+/* Free Features Note */
+.free-features-note {
+      margin-top: 48px;
+      padding: 24px;
+      text-align: center;
+      background: rgba(201, 169, 98, 0.05);
+      border-radius: 16px;
+      border: 1px dashed rgba(201, 169, 98, 0.3);
+}
+
+.free-features-note h4 { color: #c9a962; font-size: 16px; margin-bottom: 12px; }
+.free-features-note p { color: #8b8b99; font-size: 14px; line-height: 1.8; }
+.free-note-subtext { margin-top: 12px; font-style: italic; color: #6b6b77 !important; }
+
+/* Premium Content States */
+.premium-locked { position: relative; overflow: hidden; }
+.premium-locked::after {
+      content: 'Premium';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(10, 10, 15, 0.9);
+      padding: 12px 24px;
+      border-radius: 8px;
+      color: #c9a962;
+      font-size: 14px;
+}
+.premium-locked > * { filter: blur(4px); }
+.premium-unlocked::after { display: none; }
+.premium-unlocked > * { filter: none; }
