@@ -179,7 +179,7 @@ app.post('/api/stripe/donate', async (req, res) => {
     }
 });
 
-// Purchase Life Essay ($5 one-time)
+// Purchase Life Essay ($15 one-time)
 app.post('/api/stripe/life-essay', authenticateToken, async (req, res) => {
     try {
         const session = await stripe.checkout.sessions.create({
@@ -191,7 +191,7 @@ app.post('/api/stripe/life-essay', authenticateToken, async (req, res) => {
                         name: 'Personalized Life Essay',
                         description: 'A deep, personalized written analysis of your cosmic blueprint - your life path, planetary influences, and guidance for your journey.'
                     },
-                    unit_amount: 500, // $5
+                    unit_amount: 1500, // $15
                 },
                 quantity: 1,
             }],
