@@ -203,6 +203,68 @@ app.post('/api/stripe/life-essay', authenticateToken, async (req, res) => {
             success_url: `${process.env.BASE_URL || 'http://localhost:3000'}/success?type=essay`,
             cancel_url: `${process.env.BASE_URL || 'http://localhost:3000'}/pricing`,
         });
+
+        // Purchase Year Essay ($5 one-time)
+app.post('/api/stripe/year-essay', authenticateToken, async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: 'Personalized Year Essay',
+                        description: 'A 5-paragraph analysis of your cosmic influences for the remainder of 2025 - what to expect and how to navigate the months ahead.',
+                    },
+                    unit_amount: 500, // $5
+                },
+                quantity: 1,
+            }],
+            mode: 'payment',
+            metadata: {
+                userId: req.user.id,
+                type: 'year_essay'
+            },
+            success_url: `${process.env.BASE_URL || 'http://localhost:3000'}/success?type=year_essay`,
+            cancel_url: `${process.env.BASE_URL || 'http://localhost:3000'}/pricing`,
+        });
+        res.json({ sessionId: session.id, url: session.url });
+    } catch (error) {
+        console.error('Year Essay checkout error:', error);
+        res.status(500).json({ error: 'Failed to create year essay checkout session' });
+    }
+});
+
+        // Purchase Reading List ($5 one-time)
+app.post('/api/stripe/reading-list', authenticateToken, async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: 'Personalized Reading List',
+                        description: 'A curated list of books tailored to your cosmic blueprint - selected to support your life path and spiritual growth.',
+                    },
+                    unit_amount: 500, // $5
+                },
+                quantity: 1,
+            }],
+            mode: 'payment',
+            metadata: {
+                userId: req.user.id,
+                type: 'reading_list'
+            },
+            success_url: `${process.env.BASE_URL || 'http://localhost:3000'}/success?type=reading_list`,
+            cancel_url: `${process.env.BASE_URL || 'http://localhost:3000'}/pricing`,
+        });
+        res.json({ sessionId: session.id, url: session.url });
+    } catch (error) {
+        console.error('Reading List checkout error:', error);
+        res.status(500).json({ error: 'Failed to create reading list checkout session' });
+    }
+});
         
         res.json({ url: session.url });
     } catch (error) {
