@@ -2,78 +2,118 @@ require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
 async function initDatabase() {
-    console.log('Initializing database...');
-    
-    try {
-        // Users table
+      console.log('Initializing database...');
+
+  try {
+          // Users table
         await pool.query(`
-            CREATE TABLE IF NOT EXISTS users (
-                id SERIAL PRIMARY KEY,
-                email VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                name VARCHAR(255),
-                birth_date DATE,
-                birth_time TIME,
-                birth_place VARCHAR(255),
-                phone VARCHAR(20),
-                life_path INTEGER,
-                sun_sign VARCHAR(50),
-                chinese_zodiac VARCHAR(50),
-                subscription_tier VARCHAR(20) DEFAULT 'free',
-                stripe_customer_id VARCHAR(255),
-                has_life_essay BOOLEAN DEFAULT FALSE,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
-        console.log('✓ Users table ready');
-        
+              CREATE TABLE IF NOT EXISTS users (
+                      id SERIAL PRIMARY KEY,
+                              email VARCHAR(255) UNIQUE NOT NULL,
+                                      password VARCHAR(255) NOT NULL,
+                                              name VARCHAR(255),
+                                                      birth_date DATE,
+                                                              birth_time TIME,
+                                                                      birth_place VARCHAR(255),
+                                                                              phone VARCHAR(20),
+                                                                                      life_path INTEGER,
+                                                                                              sun_sign VARCHAR(50),
+                                                                                                      chinese_zodiac VARCHAR(50),
+                                                                                                              subscription_tier VARCHAR(20) DEFAULT 'free',
+                                                                                                                      stripe_customer_id VARCHAR(255),
+                                                                                                                              has_life_essay BOOLEAN DEFAULT FALSE,
+                                                                                                                                      has_year_essay BOOLEAN DEFAULT FALSE,
+                                                                                                                                              has_reading_list BOOLEAN DEFAULT FALSE,
+                                                                                                                                                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                                                                                                                                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                                                                                                                                    )
+                                                                                                                                                                        `);
+          console.log('✓ Users table ready');
+
+        // Add new columns if they don't exist (for existing databases)
+        await pool.query(`
+              DO $$ 
+                    BEGIN
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='users' AND column_name='has_year_essay') THEN
+                                      ALTER TABLE users ADD COLUMN has_year_essay BOOLEAN DEFAULT FALSE;
+                                              END IF;
+                                                      IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='users' AND column_name='has_reading_list') THEN
+                                                                ALTER TABLE users ADD COLUMN has_reading_list BOOLEAN DEFAULT FALSE;
+                                                                        END IF;
+                                                                              END $$;
+                                                                                  `);
+          console.log('✓ User columns updated');
+
         // SMS log table
         await pool.query(`
-            CREATE TABLE IF NOT EXISTS sms_log (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id),
-                message TEXT,
-                sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
-        console.log('✓ SMS log table ready');
-        
+              CREATE TABLE IF NOT EXISTS sms_log (
+                      id SERIAL PRIMARY KEY,
+                              user_id INTEGER REFERENCES users(id),
+                                      message TEXT,
+                                              sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                    )
+                                                        `);
+          console.log('✓ SMS log table ready');
+
         // Donations table
         await pool.query(`
-            CREATE TABLE IF NOT EXISTS donations (
-                id SERIAL PRIMARY KEY,
-                email VARCHAR(255),
-                amount INTEGER,
-                stripe_session_id VARCHAR(255),
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
-        console.log('✓ Donations table ready');
-        
-        // Essays table (to cache generated essays)
+              CREATE TABLE IF NOT EXISTS donations (
+                      id SERIAL PRIMARY KEY,
+                              email VARCHAR(255),
+                                      amount INTEGER,
+                                              stripe_session_id VARCHAR(255),
+                                                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                            )
+                                                                `);
+          console.log('✓ Donations table ready');
+
+        // Life essays table (to cache generated essays)
         await pool.query(`
-            CREATE TABLE IF NOT EXISTS life_essays (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id) UNIQUE,
-                content TEXT,
-                generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
-        console.log('✓ Life essays table ready');
-        
+              CREATE TABLE IF NOT EXISTS life_essays (
+                      id SERIAL PRIMARY KEY,
+                              user_id INTEGER REFERENCES users(id) UNIQUE,
+                                      content TEXT,
+                                              generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                    )
+                                                        `);
+          console.log('✓ Life essays table ready');
+
+        // Year essays table
+        await pool.query(`
+              CREATE TABLE IF NOT EXISTS year_essays (
+                      id SERIAL PRIMARY KEY,
+                              user_id INTEGER REFERENCES users(id),
+                                      year INTEGER,
+                                              content TEXT,
+                                                      generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                                              UNIQUE(user_id, year)
+                                                                    )
+                                                                        `);
+          console.log('✓ Year essays table ready');
+
+        // Reading lists table
+        await pool.query(`
+              CREATE TABLE IF NOT EXISTS reading_lists (
+                      id SERIAL PRIMARY KEY,
+                              user_id INTEGER REFERENCES users(id) UNIQUE,
+                                      content TEXT,
+                                              generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                    )
+                                                        `);
+          console.log('✓ Reading lists table ready');
+
         console.log('\n✧ Database initialization complete ✧');
-        
-    } catch (error) {
-        console.error('Database initialization error:', error);
-    } finally {
-        await pool.end();
-    }
+
+  } catch (error) {
+          console.error('Database initialization error:', error);
+  } finally {
+          await pool.end();
+  }
 }
 
 initDatabase();
