@@ -2850,6 +2850,54 @@
                 alert('Purchase feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
             }
         }
+
+        async function purchaseYearEssay() {
+    if (!currentUser && !localStorage.getItem('token')) {
+        showAuthModal('register');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/stripe/year-essay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+
+        const result = await response.json();
+        if (result.url) {
+            window.location.href = result.url;
+        }
+    } catch (error) {
+        alert('Purchase feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
+    }
+}
+
+async function purchaseReadingList() {
+    if (!currentUser && !localStorage.getItem('token')) {
+        showAuthModal('register');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/stripe/reading-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+
+        const result = await response.json();
+        if (result.url) {
+            window.location.href = result.url;
+        }
+    } catch (error) {
+        alert('Purchase feature requires backend connection.\n\nTo enable:\n1. Deploy to Railway\n2. Add Stripe keys\n3. Connect database');
+    }
+}
         
         async function subscribeSMS() {
             if (!currentUser && !localStorage.getItem('token')) {
