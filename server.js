@@ -1,4 +1,6 @@
 require('dotenv').config();
+// Admin emails that get free access to all features
+const ADMIN_EMAILS = ['allwalksoflife26@gmail.com'];
 const express = require('express');
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
@@ -182,6 +184,14 @@ app.post('/api/stripe/donate', async (req, res) => {
 // Purchase Life Essay ($15 one-time)
 app.post('/api/stripe/life-essay', authenticateToken, async (req, res) => {
     try {
+        // Admin bypass - free access
+        if (ADMIN_EMAILS.includes(req.user.email)) {
+            return res.json({ 
+                success: true, 
+                message: 'Admin access granted - no payment required',
+                adminBypass: true 
+            });
+        }
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [{
@@ -207,6 +217,14 @@ app.post('/api/stripe/life-essay', authenticateToken, async (req, res) => {
         // Purchase Year Essay ($5 one-time)
 app.post('/api/stripe/year-essay', authenticateToken, async (req, res) => {
     try {
+        // Admin bypass - free access
+        if (ADMIN_EMAILS.includes(req.user.email)) {
+            return res.json({ 
+                success: true, 
+                message: 'Admin access granted - no payment required',
+                adminBypass: true 
+            });
+        }
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [{
@@ -238,6 +256,14 @@ app.post('/api/stripe/year-essay', authenticateToken, async (req, res) => {
         // Purchase Reading List ($5 one-time)
 app.post('/api/stripe/reading-list', authenticateToken, async (req, res) => {
     try {
+        // Admin bypass - free access
+        if (ADMIN_EMAILS.includes(req.user.email)) {
+            return res.json({ 
+                success: true, 
+                message: 'Admin access granted - no payment required',
+                adminBypass: true 
+            });
+        }
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [{
