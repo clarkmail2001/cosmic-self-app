@@ -386,21 +386,26 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async
 // Get Life Essay
 app.get('/api/reading/life-essay', authenticateToken, async (req, res) => {
   try {
-    const user = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
+    const userResult = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
     
-    if (!user.rows[0].has_life_essay && !ADMIN_EMAILS.includes(user.rows[0].email)) {
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const user = userResult.rows[0];
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
+    
+    if (!user.has_life_essay && !isAdmin) {
       return res.status(403).json({ error: 'Life essay not purchased' });
     }
     
-    // Check for cached essay
     const cached = await pool.query('SELECT content FROM life_essays WHERE user_id = $1', [req.user.id]);
     
     if (cached.rows.length > 0) {
       return res.json({ essay: cached.rows[0].content });
     }
     
-    // Generate and cache
-    const essay = generateLifeEssay(user.rows[0]);
+    const essay = generateLifeEssay(user);
     await pool.query(
       'INSERT INTO life_essays (user_id, content) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET content = $2, generated_at = NOW()',
       [req.user.id, essay]
@@ -416,15 +421,20 @@ app.get('/api/reading/life-essay', authenticateToken, async (req, res) => {
 // Get Year Essay
 app.get('/api/reading/year-essay', authenticateToken, async (req, res) => {
   try {
-    const user = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
+    const userResult = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
     
-    if (!user.rows[0].has_year_essay && !ADMIN_EMAILS.includes(user.rows[0].email)) {
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const user = userResult.rows[0];
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
+    
+    if (!user.has_year_essay && !isAdmin) {
       return res.status(403).json({ error: 'Year essay not purchased' });
     }
     
     const currentYear = new Date().getFullYear();
-    
-    // Check for cached essay for this year
     const cached = await pool.query(
       'SELECT content FROM year_essays WHERE user_id = $1 AND year = $2',
       [req.user.id, currentYear]
@@ -434,8 +444,7 @@ app.get('/api/reading/year-essay', authenticateToken, async (req, res) => {
       return res.json({ essay: cached.rows[0].content });
     }
     
-    // Generate and cache
-    const essay = generateYearEssay(user.rows[0], currentYear);
+    const essay = generateYearEssay(user, currentYear);
     await pool.query(
       'INSERT INTO year_essays (user_id, year, content) VALUES ($1, $2, $3) ON CONFLICT (user_id, year) DO UPDATE SET content = $3, generated_at = NOW()',
       [req.user.id, currentYear, essay]
@@ -451,21 +460,26 @@ app.get('/api/reading/year-essay', authenticateToken, async (req, res) => {
 // Get Reading List
 app.get('/api/reading/reading-list', authenticateToken, async (req, res) => {
   try {
-    const user = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
+    const userResult = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
     
-    if (!user.rows[0].has_reading_list && !ADMIN_EMAILS.includes(user.rows[0].email)) {
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const user = userResult.rows[0];
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
+    
+    if (!user.has_reading_list && !isAdmin) {
       return res.status(403).json({ error: 'Reading list not purchased' });
     }
     
-    // Check for cached list
     const cached = await pool.query('SELECT content FROM reading_lists WHERE user_id = $1', [req.user.id]);
     
     if (cached.rows.length > 0) {
       return res.json({ readingList: cached.rows[0].content });
     }
     
-    // Generate and cache
-    const readingList = generateReadingList(user.rows[0]);
+    const readingList = generateReadingList(user);
     await pool.query(
       'INSERT INTO reading_lists (user_id, content) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET content = $2, generated_at = NOW()',
       [req.user.id, readingList]
