@@ -33,6 +33,7 @@ const pool = new Pool({
 app.use(helmet({
   contentSecurityPolicy: false
 }));
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
@@ -40,7 +41,8 @@ app.use(express.static('.'));
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
+  validate: { xForwardedForHeader: false }
 });
 app.use('/api/', limiter);
 
