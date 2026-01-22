@@ -59,7 +59,22 @@ const authenticateToken = (req, res, next) => {
 };
 
 // ============== AUTH ROUTES ==============
-
+// Admin reset - delete existing account to re-register (TEMPORARY)
+app.post('/api/auth/admin-reset', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!ADMIN_EMAILS.includes(email)) {
+      return res.status(403).json({ error: 'Not authorized' });
+    }
+    
+    await pool.query('DELETE FROM users WHERE email = $1', [email]);
+    res.json({ success: true, message: 'Account deleted. You can now re-register.' });
+  } catch (error) {
+    console.error('Admin reset error:', error);
+    res.status(500).json({ error: 'Reset failed' });
+  }
+});
 // Register
 app.post('/api/auth/register', async (req, res) => {
   try {
