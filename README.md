@@ -2,7 +2,7 @@
 
 **Know Your Place in the Universe**
 
-An astrology and numerology platform offering free readings, personalized life essays ($5), and SMS cosmic guidance ($10/month).
+An astrology, numerology, and Chinese zodiac platform offering free readings, personalized life essays ($15), year essays ($5), reading lists ($5), and SMS cosmic guidance ($10/month).
 
 ---
 
@@ -77,8 +77,10 @@ railway run npm run db:init
 ## 💳 Stripe Setup
 
 ### Products Created Automatically:
-- **Life Essay**: $5 one-time
-- **Cosmic SMS**: $10/month subscription
+- **Life Essay**: $15 one-time
+- **Year Essay**: $5 one-time
+- **Reading List**: $5 one-time
+- **Cosmic SMS**: $10/month subscription (includes all of the above)
 
 ### Test Mode:
 Use Stripe test keys (sk_test_...) for development.
@@ -103,14 +105,17 @@ SMS sends automatically:
 
 ```
 cosmic-self-app/
-├── server.js              # Express backend
-├── package.json           # Dependencies
-├── railway.toml           # Railway config
-├── .env.example           # Environment template
-├── scripts/
-│   └── init-db.js        # Database setup
-└── public/
-    └── index.html        # Frontend (single-page app)
+├── server.js                  # Express backend + routes
+├── cosmic-content.js          # Content library (all essay text + interactions)
+├── cosmic-essays.js           # Calculation helpers + essay generators
+├── account-dashboard.js       # Account UI logic
+├── cosmic-enhancements.js     # Misc frontend helpers
+├── cosmic-enhancements.css    # Supplementary styles
+├── index.html                 # Frontend (single-page app)
+├── package.json               # Dependencies
+├── railway.toml               # Railway config
+└── scripts/
+    └── init-db.js             # PostgreSQL table setup (npm run db:init)
 ```
 
 ---
@@ -120,8 +125,10 @@ cosmic-self-app/
 | Product | Price | Type |
 |---------|-------|------|
 | Free Reading | $0 | Lead generation |
-| Life Essay | $5 | One-time |
-| Cosmic SMS | $10/mo | Subscription |
+| Life Essay | $15 | One-time |
+| Year Essay | $5 | One-time |
+| Reading List | $5 | One-time |
+| Cosmic SMS | $10/mo | Subscription (includes all paid products) |
 | Donations | Variable | One-time |
 
 ---
