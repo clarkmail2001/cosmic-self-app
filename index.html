@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmic Self | Know Your Place in the Universe</title>
+
+    <!-- SEO meta tags -->
+    <meta name="description" content="Cosmic Self synthesizes Western astrology, Pythagorean numerology, and Chinese zodiac into one personalized cosmic blueprint. Free birth chart, life path, and moon phase. Personalized essays from $5.">
+    <meta name="keywords" content="astrology, numerology, life path number, chinese zodiac, birth chart, sun sign, moon phase, personal year, cosmic blueprint, western astrology, chinese astrology, personalized astrology reading">
+    <meta name="author" content="All Walks of Life Production">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="canonical" href="https://cosmic-self-app-production.up.railway.app/">
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cosmic-self-app-production.up.railway.app/">
+    <meta property="og:title" content="Cosmic Self — Know Your Place in the Universe">
+    <meta property="og:description" content="Western astrology, Pythagorean numerology, and Chinese zodiac, synthesized into your personal cosmic blueprint. Free reading plus personalized essays.">
+    <meta property="og:site_name" content="Cosmic Self">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cosmic Self — Know Your Place in the Universe">
+    <meta name="twitter:description" content="Western astrology, Pythagorean numerology, and Chinese zodiac, synthesized.">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Cosmic Self",
+        "description": "Cosmic Self synthesizes Western astrology, Pythagorean numerology, and Chinese zodiac into one personalized cosmic blueprint.",
+        "url": "https://cosmic-self-app-production.up.railway.app/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "All Walks of Life Production"
+        }
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="cosmic-enhancements.css">
     <style>
@@ -1945,12 +1981,9 @@
             <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Life Essay</h4>
             <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$15</div>
             <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">One-time purchase</div>
-            <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 15 personalized paragraphs</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Your complete cosmic blueprint</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Life path deep analysis</li>
-                <li style="padding: 0.5rem 0;">✓ Downloadable PDF</li>
-            </ul>
+            <p style="text-align: left; margin-bottom: 1.5rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;">
+                A ~1,300-word personalized synthesis of your Life Path, Sun Sign, Chinese animal, and Chinese year-element &mdash; including the element interaction that makes your specific combination different from anyone else's. Yours to revisit in your account whenever you want.
+            </p>
             <button class="generate-btn" onclick="purchaseEssay()">Get Your Life Essay</button>
         </div>
 
@@ -1960,12 +1993,9 @@
             <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Year Essay</h4>
             <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$5</div>
             <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">One-time purchase</div>
-            <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Your <span id="currentYearSpan">2026</span> forecast</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Key dates & opportunities</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Challenges to prepare for</li>
-                <li style="padding: 0.5rem 0;">✓ Downloadable PDF</li>
-            </ul>
+            <p style="text-align: left; margin-bottom: 1.5rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;">
+                Your <span id="currentYearSpan">2026</span> forecast, anchored in your Personal Year and how it meets your Life Path. Reads the opportunity, the caution, and the practice the months ahead are asking for.
+            </p>
             <button class="generate-btn" onclick="purchaseYearEssay()">Get Your Year Essay</button>
         </div>
 
@@ -1975,12 +2005,9 @@
             <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Reading List</h4>
             <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$5</div>
             <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">One-time purchase</div>
-            <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Curated book recommendations</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Matched to your life path</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Spiritual growth focus</li>
-                <li style="padding: 0.5rem 0;">✓ Downloadable PDF</li>
-            </ul>
+            <p style="text-align: left; margin-bottom: 1.5rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;">
+                Four books chosen from each axis of your cosmic signature &mdash; Life Path, Sun Sign element, Chinese animal, and Chinese year-element &mdash; plus three universal works from the source traditions Cosmic Self draws on.
+            </p>
             <button class="generate-btn" onclick="purchaseReadingList()">Get Your Reading List</button>
         </div>
         
@@ -1991,12 +2018,12 @@
             <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem;">Cosmic SMS</h4>
             <div style="font-size: 2rem; color: var(--gold); margin-bottom: 0.25rem;">$10</div>
             <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">per month</div>
-            <ul style="list-style: none; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ <strong style="color: var(--gold);">INCLUDES Life Essay + Year Essay + Reading List</strong></li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 3 personalized texts weekly</li>
-                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ Real-time guidance based on YOUR chart</li>
-                <li style="padding: 0.5rem 0;">✓ Know when to act, when to wait</li>
-            </ul>
+            <p style="text-align: left; margin-bottom: 1rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;">
+                <strong style="color: var(--gold);">Full access to everything Cosmic Self offers.</strong> Includes the Life Essay, Year Essay, and Reading List in your account.
+            </p>
+            <p style="text-align: left; margin-bottom: 1.5rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;">
+                Plus three personalized texts per week, timed to moon phases and the rhythm of your chart. Cancel anytime.
+            </p>
             <button class="generate-btn" onclick="subscribeSMS()">Get Full Access</button>
         </div>
     </div>
@@ -2020,7 +2047,49 @@
             </div>
             <button class="generate-btn" style="max-width: 300px; margin: 0 auto;" onclick="processDonation()">Donate Now</button>
         </section>
-        
+
+        <!-- Sources & Disclaimer Section -->
+        <section class="cycles-section" style="margin-top: 2rem;" id="sourcesSection">
+            <h3 class="section-title">Sources &amp; Limits</h3>
+            <p class="section-subtitle">The traditions Cosmic Self draws from &mdash; and what this site is not</p>
+
+            <div class="cycles-grid">
+                <div class="cycle-item">
+                    <h4>Pythagorean Numerology</h4>
+                    <div class="duration">~500 BCE</div>
+                    <p>Your Life Path, Expression, Soul Urge, Personality, Birthday, Personal Year, and Challenge Numbers all derive from Pythagorean reduction. One of the oldest continuous mathematical traditions in the West.</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Western Astrology</h4>
+                    <div class="duration">Hellenistic foundation</div>
+                    <p>The tropical zodiac, 12-house system, planetary rulers, modalities, and elements are drawn from the Hellenistic foundation refined by 2,000 years of practice. We use the Tropical system (standard for Western astrology).</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Chinese Stem-Branch Zodiac</h4>
+                    <div class="duration">Han dynasty refinement</div>
+                    <p>The 12-animal &times; 5-element 60-year cycle (干支, stem-branch) traces to the Han dynasty's refinement of older astronomical and divinatory systems. Animals, fixed elements, and yin/yang come from this lineage.</p>
+                </div>
+                <div class="cycle-item">
+                    <h4>Chinese Five-Element Theory</h4>
+                    <div class="duration">Zhou dynasty foundation</div>
+                    <p>The generating and controlling cycles between Wood, Fire, Earth, Metal, and Water (五行, Wu Xing) underlie our element-interaction synthesis. The system predates and pervades much of Chinese philosophy and medicine.</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 16px; padding: 2rem; margin-top: 2rem;">
+                <h4 style="font-family: 'Cormorant Garamond', serif; color: var(--gold); margin-bottom: 1rem; font-size: 1.4rem;">A Note on Use</h4>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                    Cosmic Self is offered for self-reflection and as entertainment. The calculations are mathematically deterministic and can be verified against any reputable astrology resource. The interpretations are frameworks for thinking about yourself &mdash; not predictions, not commands, not professional advice.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--text-primary);">This site is not a substitute for medical, legal, financial, or psychological advice.</strong> The choices you make about your life are yours. Use any framework here only insofar as you find it useful.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    We honor the lineages above. None of these traditions are inventions of Cosmic Self &mdash; they have been refined by thousands of practitioners across millennia. Where you find resonance, follow it to the source.
+                </p>
+            </div>
+        </section>
+
         <footer>
             <p class="footer-brand">Cosmic Self</p>
             <p class="footer-production">An All Walks of Life Production</p>
